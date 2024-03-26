@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="QuickNote - Simple Note Taking App" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Aclonica&family=Inter:wght@100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles/reset.css" />
+		<link rel="stylesheet" href="styles/styles.scss" />
+		<title>Note App</title>
+	</head>
+
+	<body>
+		<!-- Header -->
+		<header class="header">
+			<!-- Header Wrap -->
+			<div class="header__wrap">
+				<h2 class="header__logo">Almdrasa-Notes</h2>
+				<nav class="header__nav">
+					<!-- Search -->
+					<form class="header__search-form">
+						<input
+							type="search"
+							name="q"
+							class="header__search-input"
+							placeholder="Search query"
+						/>
+						<input type="submit" value="Go!" class="header__search-submit" />
+					</form>
+
+					<!-- Links -->
+					<ul class="header__menu">
+						<li class="header__menu-item">
+							<a href="#" class="header__menu-link">Notes</a>
+						</li>
+						<li class="header__menu-item">
+							<a href="#" class="header__menu-link">Add Note</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<!-- Main -->
+		<main class="main">
+			<!-- Main Wrap -->
+			<div class="main__wrap">
+				<!-- Sidebar -->
+				<div class="sidebar">
+					<!-- Top Part -->
+					<div class="sidebar__top">
+						<h2 class="sidebar__title">PINNED</h2>
+						<!-- Note -->
+						<article class="sidebar__note">
+							<h3 class="sidebar__note-title">Lorem, ipsum dolor.</h3>
+							<p class="sidebar__note-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Donec
+								a diam lectus. Set sit amet ipsum mauris. Maecenas congue ligula
+								as quam viverra nec consectetur ant hendrerit. Donec et mollis
+								dolor. Praesent et diam eget libero egestas mattis sit amet
+								vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia
+								consectetur.
+							</p>
+						</article>
+					</div>
+
+					<!-- Bottom Part -->
+					<div class="sidebar__bottom">
+						<h2 class="sidebar__title">Notes</h2>
+
+						<!-- Note -->
+						<article class="sidebar__note">
+							<h3 class="sidebar__note-title">Lorem, ipsum dolor.</h3>
+							<p class="sidebar__note-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Donec
+								a diam lectus. Set sit amet ipsum mauris. Maecenas congue ligula
+								as Nam tincidunt congue enim, ut porta lorem lacinia
+								consectetur.
+							</p>
+						</article>
+
+						<!-- Note -->
+						<article class="sidebar__note">
+							<h3 class="sidebar__note-title">Lorem, ipsum dolor.</h3>
+							<p class="sidebar__note-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Donec
+								a diam lectus. Set sit amet ipsum mauris. Maecenas congue ligula
+								as Nam tincidunt congue enim, ut porta lorem lacinia
+								consectetur.
+							</p>
+						</article>
+
+						<!-- Note -->
+						<article class="sidebar__note">
+							<h3 class="sidebar__note-title">Lorem, ipsum dolor.</h3>
+							<p class="sidebar__note-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Donec
+								a diam lectus. Set sit amet ipsum mauris. Maecenas congue ligula
+								as Nam tincidunt congue enim, ut porta lorem lacinia
+								consectetur.
+							</p>
+						</article>
+					</div>
+				</div>
+
+				<!-- Content -->
+				<div class="content">
+					<div class="content-wrap">
+						<article class="content__article">
+							<h1 class="content__article-title">
+								Lorem ipsum dolor sit amet.
+							</h1>
+							<p class="content__article-content">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+								eius tempore ipsa deleniti maxime ipsum modi quibusdam sed
+								minima quis cum rem assumenda repellendus possimus asperiores
+								vero animi culpa repudiandae nisi eligendi, quam accusamus
+								praesentium rerum? Beatae unde obcaecati soluta quibusdam,
+								labore, vel sequi, illo voluptatum ut commodi temporibus
+								facilis.
+							</p>
+						</article>
+						<!-- Add icon -->
+						<div class="content__add-icon">
+							<i>Add icon</i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
