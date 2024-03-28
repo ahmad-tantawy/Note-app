@@ -1,0 +1,26 @@
+@mixin inter-regular {
+	font-family: var(--font-family);
+	font-optical-sizing: auto;
+	font-weight: 100;
+	font-style: normal;
+	font-variation-settings: 'slnt' 0;
+}
+
+@mixin aclonica-regular {
+	font-family: 'Aclonica', sans-serif;
+	color: var(--color-accent-light);
+	font-weight: 400;
+	font-style: normal;
+}
+
+@mixin text-style(
+	$size: var(--font-size-16),
+	$line-height,
+	$weight: var(--font-weight-regular),
+	$color
+) {
+	font-size: $size;
+	line-height: $line-height;
+	font-weight: $weight;
+	color: $color;
+}

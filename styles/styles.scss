@@ -1,19 +1,106 @@
-//  font-size / line-height
-// 26/31
-// 20/24
-// 16/27
-// 13/20
+@import 'mixins';
 
-.inter-regular {
-	font-family: 'Inter', sans-serif;
-	font-optical-sizing: auto;
-	font-weight: 100;
-	font-style: normal;
-	font-variation-settings: 'slnt' 0;
+// Variables
+:root {
+	/* Typography */
+	--font-family: 'Inter', sans-serif;
+	--font-size-13: 1.3rem;
+	--font-size-16: 1.6rem;
+	--font-size-20: 2rem;
+	--font-size-26: 2.6rem;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+
+	/* Light Colors */
+	--color-primary-light: #303030;
+	--color-accent-light: #ec7160;
+	--color-hover-light: #da5745;
+	--color-gray01-light: #505050;
+	--color-gray02-light: #898989;
+	--color-gray03-light: #e7e7e9;
+	--color-gray04-light: #f6f6f6;
+	--color-white-light: #fff;
+	--color-errors-light: #d82700;
+
+	/* Dark Colors */
+	--color-primary-dark: #f6f6f6;
+	--color-accent-dark: #ef8678;
+	--color-hover-dark: #ec7160;
+	--color-gray01-dark: #b7b7b7;
+	--color-gray02-dark: #858585;
+	--color-gray03-dark: #303030;
+	--color-gray04-dark: #191919;
+	--color-black-dark: #000;
 }
 
-.aclonica-regular {
-	font-family: 'Aclonica', sans-serif;
-	font-weight: 400;
-	font-style: normal;
+// Global Style
+.container {
+	display: flex;
+}
+
+// Styles for the Aside Section
+.aside {
+	min-width: 25.8rem;
+	height: 100vh;
+	padding-left: 24px;
+	background-color: #f6f6f6;
+
+	// Header Styles
+	.header {
+		.logo {
+			@include aclonica-regular;
+			margin-top: 41px;
+		}
+
+		.search-form {
+			display: flex;
+			align-items: center;
+			width: 21rem;
+			height: 3.401rem;
+			margin: 5.705rem 0 3.594rem;
+			border-radius: 0.8rem;
+			background-color: var(--color-white-light);
+
+			.search-button {
+				margin: 0.8rem;
+			}
+
+			.search-input {
+				width: 17rem;
+				height: 2rem;
+				&::placeholder {
+					@include text-style(
+						$size: var(--font-size-13),
+						$line-height: 20,
+						$weight: var(--font-weight-regular),
+						$color: var(--color-gray02-light)
+					);
+				}
+			}
+		}
+	}
+
+	// Links Styles
+	&__links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		margin-left: 0.8rem;
+
+		.aside__link {
+			@include text-style(
+				$line-height: 2.7rem,
+				$color: var(--color-primary-light)
+			);
+			span {
+				position: relative;
+				display: inline-block;
+				top: 0.45rem;
+				width: 3px;
+				height: 2rem;
+				margin-right: 1.2rem;
+				background-color: var(--color-accent-light);
+			}
+		}
+	}
 }

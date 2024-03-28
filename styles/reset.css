@@ -7,11 +7,8 @@
 
 * {
 	margin: 0;
-}
-
-body {
-	line-height: 1.5;
-	-webkit-font-smoothing: antialiased;
+	padding: 0;
+	font: inherit;
 }
 
 img,
@@ -40,8 +37,38 @@ h6 {
 	overflow-wrap: break-word;
 }
 
+a {
+	color: inherit;
+	display: inline-block;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+input {
+	border: none;
+	outline: none;
+	caret-color: var(--color-accent-light);
+}
+
+ul,
+ol {
+	list-style: none;
+}
 /*--- END RESET ---*/
 
 :root {
 	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body,
+[type='submit'] {
+	font-family: var(--font-family);
+	font-size: var(--font-size-16);
+	font-weight: var(--font-weight-regular);
+	-webkit-font-smoothing: antialiased;
 }
