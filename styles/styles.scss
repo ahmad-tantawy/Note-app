@@ -31,11 +31,15 @@
 	--color-gray03-dark: #303030;
 	--color-gray04-dark: #191919;
 	--color-black-dark: #000;
+
+	/* Other */
+	--boder-radius: 0.8rem;
 }
 
 // Global Style
 .container {
 	display: flex;
+	overflow-x: hidden;
 }
 
 // Styles for the Aside Section
@@ -71,7 +75,7 @@
 				&::placeholder {
 					@include text-style(
 						$size: var(--font-size-13),
-						$line-height: 20,
+						$line-height: 2rem,
 						$weight: var(--font-weight-regular),
 						$color: var(--color-gray02-light)
 					);
@@ -101,6 +105,120 @@
 				margin-right: 1.2rem;
 				background-color: var(--color-accent-light);
 			}
+		}
+	}
+}
+
+// Styles for the Main Section
+.main {
+	&__wrap {
+		display: flex;
+	}
+
+	.sidebar {
+		position: relative;
+		height: 100vh;
+		width: 32.2rem;
+		padding-top: 4.8rem;
+		border: 0.1rem solid var(--color-gray03-light);
+		border-width: 0 1px;
+
+		&-toggle {
+			position: absolute;
+			right: -1.45rem;
+			top: 12.917rem;
+		}
+
+		&__title {
+			@include text-style(
+				$size: var(--font-size-13),
+				$line-height: 2rem,
+				$color: var(--color-accent-light)
+			);
+		}
+		.pinned {
+			padding-left: 2.8rem;
+			margin-bottom: 0.6rem;
+		}
+		.notes {
+			margin: 1.4rem 0 1.9rem;
+			padding: 1rem 0 0.8rem 2.8rem;
+			border: 0.1rem solid var(--color-gray03-light);
+			border-width: 1px 0;
+		}
+		&__top {
+			.notes-wrapper {
+				max-height: 21.3rem;
+			}
+		}
+	}
+
+	.content {
+		min-width: 83rem;
+		height: 100vh;
+	}
+
+	.notes-wrapper {
+		max-height: 39rem;
+		overflow-y: auto;
+		@media (min-height: 848px) {
+			max-height: 59rem;
+		}
+
+		&::-webkit-scrollbar {
+			width: 0.5rem;
+			border-radius: 5px;
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+			border-top-right-radius: 5px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: var(--color-accent-light);
+			border-radius: 5px;
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background: var(--color-hover-light);
+		}
+
+		.note {
+			width: 29.8rem;
+			padding: 1.1rem 1.6rem 0.6rem;
+			margin: 0 auto 1rem;
+			font-size: var(--font-size-13);
+			color: var(--color-gray02-light);
+			border-radius: var(--boder-radius);
+
+			&-title {
+				@include text-style(
+					$size: var(--font-size-16),
+					$line-height: 2.7rem,
+					$color: var(--color-primary-light)
+				);
+				margin-bottom: 0.3rem;
+			}
+			&-content {
+				margin-bottom: 1.6rem;
+				max-height: 5.1rem;
+				overflow: hidden;
+			}
+			&-footer {
+				display: flex;
+				justify-content: space-between;
+				.delete-button {
+					margin-right: 1.5rem;
+					color: var(--color-errors-light);
+				}
+			}
+		}
+
+		.active-note .note-title {
+			font-size: var(--font-size-20);
+			line-height: 2rem;
+		}
+
+		.pinned-note {
+			background-color: var(--color-gray04-light);
 		}
 	}
 }
