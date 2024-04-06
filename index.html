@@ -52,92 +52,133 @@
 
 			<!-- Main -->
 			<main class="main">
-				<!-- Main Wrap -->
 				<div class="main__wrap">
-					<!-- Sidebar -->
-					<div class="sidebar">
-						<div class="sidebar-toggle">
-							<button class="sidebar-toggle__button">
-								<img
-									class="sidebar-toggle__icon"
-									src="images/button-icon.svg"
-									alt="Toggle Sidebar Icon"
-								/>
-							</button>
-						</div>
+					<!-- Note Page -->
+					<div id="notePage" class="note__page">
+						<div class="sidebar">
+							<div class="sidebar-toggle">
+								<button class="sidebar-toggle__button">
+									<img
+										class="sidebar-toggle__icon"
+										src="images/button-icon.svg"
+										alt="Toggle Sidebar Icon"
+									/>
+								</button>
+							</div>
 
-						<!-- Top Part 'PINNED'-->
-						<div class="sidebar__top">
-							<h2 class="sidebar__title pinned">PINNED</h2>
-							<div class="notes-wrapper">
-								<!-- Notes -->
-								<article class="note">
-									<h3 class="note-title">Lorem, ipsum dolor.</h3>
-									<p class="note-content">
-										Lorem ipsum dolor s cupiditate quia facere!
-									</p>
-									<div class="note-footer">
-										<p class="publish-date">March 7, 2019</p>
-										<button class="delete-button">Delete</button>
-									</div>
-								</article>
+							<!-- Top Part 'PINNED'-->
+							<div class="sidebar__top">
+								<h2 class="sidebar__title pinned">PINNED</h2>
+								<div class="notes-wrapper">
+									<!-- Notes -->
+									<article class="note">
+										<h3 class="note-title">Lorem, ipsum dolor.</h3>
+										<p class="note-content">
+											Lorem ipsum dolor s cupiditate quia facere!
+										</p>
+										<div class="note-footer">
+											<p class="publish-date">March 7, 2019</p>
+											<button class="delete-button">Delete</button>
+										</div>
+									</article>
+								</div>
+							</div>
+
+							<!-- Bottom Part 'Notes'-->
+							<div class="sidebar__bottom">
+								<h2 class="sidebar__title notes">Notes</h2>
+								<div class="notes-wrapper">
+									<!-- Notes -->
+									<article class="note active-note">
+										<h3 class="note-title">Lorem, ipsum dolor.</h3>
+										<p class="note-content">porta lorem lacinia consectetur.</p>
+										<div class="note-footer">
+											<p class="publish-date">March 7, 2019</p>
+											<button class="delete-button">Delete</button>
+										</div>
+									</article>
+									<article class="note pinned-note">
+										<h3 class="note-title">Lorem, ipsum dolor.</h3>
+										<p class="note-content">
+											Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+											Velit tenetur, quis facilis nihil deleniti repellat ad
+											perspiciatis dolorem dolor commodi.
+										</p>
+										<div class="note-footer">
+											<p class="publish-date">March 7, 2019</p>
+											<button class="delete-button">Delete</button>
+										</div>
+									</article>
+									<article class="note">
+										<h3 class="note-title">Lorem, ipsum dolor.</h3>
+										<p class="note-content">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+											porta lorem lacinia consectetur.
+										</p>
+										<div class="note-footer">
+											<p class="publish-date">March 7, 2019</p>
+											<button class="delete-button">Delete</button>
+										</div>
+									</article>
+								</div>
 							</div>
 						</div>
 
-						<!-- Bottom Part 'Notes'-->
-						<div class="sidebar__bottom">
-							<h2 class="sidebar__title notes">Notes</h2>
-							<div class="notes-wrapper">
-								<!-- Notes -->
-								<article class="note active-note">
-									<h3 class="note-title">Lorem, ipsum dolor.</h3>
-									<p class="note-content">porta lorem lacinia consectetur.</p>
-									<div class="note-footer">
-										<p class="publish-date">March 7, 2019</p>
-										<button class="delete-button">Delete</button>
-									</div>
-								</article>
-								<article class="note pinned-note">
-									<h3 class="note-title">Lorem, ipsum dolor.</h3>
-									<p class="note-content">
-										Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-										Velit tenetur, quis facilis nihil deleniti repellat ad
-										perspiciatis dolorem dolor commodi.
-									</p>
-									<div class="note-footer">
-										<p class="publish-date">March 7, 2019</p>
-										<button class="delete-button">Delete</button>
-									</div>
-								</article>
-								<article class="note">
-									<h3 class="note-title">Lorem, ipsum dolor.</h3>
-									<p class="note-content">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-										porta lorem lacinia consectetur.
-									</p>
-									<div class="note-footer">
-										<p class="publish-date">March 7, 2019</p>
-										<button class="delete-button">Delete</button>
-									</div>
-								</article>
+						<div class="content">
+							<div class="content-wrap">
+								<!-- Note -->
+								<div class="content__note-wrap">
+									<article class="note">
+										<h2 class="note-title">Lorem, ipsum dolor.</h2>
+										<p class="note-date">
+											March 7, 2019
+											<span class="note-auther">/ By Yousef</span>
+										</p>
+										<p class="note-content">
+											Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+											Provident beatae odit libero placeat consequatur maxime
+											quam perspiciatis aperiam. Obcaecati ipsum doloremque
+											aliquid autem Eius consequatur ad numquam deleniti natus
+											optio atque. molestiae magnam eum temporibus doloremque
+											autem praesentium aliquam alias perspiciatis eligendi
+											incidunt error similique quas nostrum vitae ea? Maxime
+											asperiores qui inventore cupiditate ex sint voluptates,
+											corporis, autem dolorum sapiente assumenda eligendi dolore
+											quibusdam dignissimos, tempore enim doloribus nisi.
+											Ratione quasi facere hic eligendi ab quisquam, accusamus
+											ullam?
+										</p>
+									</article>
+								</div>
+								<!-- Add icon -->
+								<button class="add-icon"></button>
 							</div>
 						</div>
 					</div>
 
-					<!-- Content -->
-					<div class="content">
-						<div class="content-wrap">
-							<article class="content__article">
-								<h1 class="content__article-title">
-									Lorem ipsum dolor sit amet.
-								</h1>
-								<p class="content__article-content">temporibus facilis.</p>
-							</article>
-							<!-- Add icon -->
-							<div class="content__add-icon">
-								<i>Add icon</i>
-							</div>
-						</div>
+					<!-- Add Page -->
+					<div id="addPage" style="display: none">
+						<section class="add__page">
+							<h2 class="note-title">Add Note</h2>
+							<form>
+								<div>
+									<label for="title">Title*</label>
+									<input type="text" name="title" id="title" />
+								</div>
+								<div>
+									<label for="author">Author*</label>
+									<input type="text" name="author" id="author" />
+								</div>
+								<div>
+									<label for="note">Your Note*</label>
+									<textarea name="note" id="note"></textarea>
+								</div>
+								<div>
+									<button>Add Note</button>
+									<button>Add pinned note</button>
+								</div>
+							</form>
+						</section>
 					</div>
 				</div>
 			</main>

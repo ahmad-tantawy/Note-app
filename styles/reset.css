@@ -50,7 +50,9 @@ button {
 	background-color: transparent;
 }
 
-input {
+input,
+textarea {
+	display: block;
 	border: none;
 	outline: none;
 	caret-color: var(--color-accent-light);
