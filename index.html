@@ -54,7 +54,7 @@
 			<main class="main">
 				<div class="main__wrap">
 					<!-- Note Page -->
-					<div id="notePage" class="note__page">
+					<div id="notePage" class="note__page" style="display: none">
 						<div class="sidebar">
 							<div class="sidebar-toggle">
 								<button class="sidebar-toggle__button">
@@ -157,25 +157,39 @@
 					</div>
 
 					<!-- Add Page -->
-					<div id="addPage" style="display: none">
+					<div id="addPage" style="display: non">
 						<section class="add__page">
 							<h2 class="note-title">Add Note</h2>
 							<form>
 								<div>
 									<label for="title">Title*</label>
-									<input type="text" name="title" id="title" />
+									<input
+										type="text"
+										name="title"
+										id="title"
+										class="form-title"
+									/>
 								</div>
 								<div>
 									<label for="author">Author*</label>
-									<input type="text" name="author" id="author" />
+									<input
+										type="text"
+										name="author"
+										id="author"
+										class="form-author"
+									/>
 								</div>
 								<div>
 									<label for="note">Your Note*</label>
-									<textarea name="note" id="note"></textarea>
+									<textarea name="note" id="note" class="form-note"></textarea>
 								</div>
 								<div>
-									<button>Add Note</button>
-									<button>Add pinned note</button>
+									<button class="add-note-button" data-key="false">
+										Add Note
+									</button>
+									<button class="add-pinned-note-button" data-key="true">
+										Add Pinned Note
+									</button>
 								</div>
 							</form>
 						</section>
@@ -183,5 +197,6 @@
 				</div>
 			</main>
 		</div>
+		<script src="index.js" type="module"></script>
 	</body>
 </html>
