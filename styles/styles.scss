@@ -34,6 +34,7 @@
 
 	/* Other */
 	--border-radius: 0.7rem;
+	--transition-timing: 1s;
 }
 
 // Global Style
@@ -113,6 +114,23 @@
 .main {
 	#notePage {
 		display: flex;
+		position: relative;
+
+		.sidebar.toggled {
+			position: absolute;
+			left: -32.2rem;
+
+			.sidebar__top,
+			.sidebar__bottom {
+				position: relative;
+				z-index: -1;
+			}
+
+			.sidebar-toggle__icon {
+				transform: rotate(-180deg);
+				transition: all 3s ease;
+			}
+		}
 
 		.sidebar {
 			position: relative;
@@ -126,6 +144,11 @@
 				position: absolute;
 				right: -1.45rem;
 				top: 12.917rem;
+
+				&__icon {
+					transform: rotate(360deg);
+					transition: all var(--transition-timing) ease;
+				}
 			}
 
 			&__title {
@@ -277,6 +300,58 @@
 				margin-bottom: 3.6rem;
 			}
 
+			form {
+				position: relative;
+				// Confirmation Style
+				#confirmation-message {
+					position: absolute;
+					display: none;
+					width: 100%;
+					color: green;
+					user-select: none;
+					text-align: center;
+					padding: 2.25rem 5rem;
+					border: 1px solid green;
+					font-weight: var(--font-weight-bold);
+					border-radius: var(--border-radius);
+					background-color: var(--color-gray03-light);
+					animation: fadeinout 3s ease;
+				}
+
+				@keyframes fadeinout {
+					0% {
+						opacity: 0;
+					}
+					50% {
+						opacity: 1;
+					}
+					80% {
+						opacity: 1;
+						transform: translateY(50%);
+					}
+					100% {
+						opacity: 0;
+						transform: translateY(100%);
+					}
+				}
+
+				.required-input {
+					animation: fadeinout-errors 3s ease;
+				}
+
+				@keyframes fadeinout-errors {
+					0% {
+						border: 1px solid transparent;
+					}
+					50% {
+						border: 1px solid var(--color-errors-light);
+					}
+					100% {
+						border: 1px solid transparent;
+					}
+				}
+			}
+
 			form label {
 				@include text-style(
 					$size: var(--font-size-13),
@@ -300,6 +375,8 @@
 			textarea:focus {
 				height: 15rem;
 				margin-bottom: 4.8rem;
+				resize: none;
+				line-height: 1.5;
 			}
 
 			button {

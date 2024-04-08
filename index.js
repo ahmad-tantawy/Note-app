@@ -1,56 +1,48 @@
 import {
   addNoteButton,
-  addPinnedNoteButton,
-  noteAuthorInput,
-  noteTextInput, noteTitleInput
+  addPinnedNoteButton, sidebarToggleButton, notesPageButton,
+  addPageButton
 } from './scripts/elements';
 import {
   getDataFromLocalStorage,
   saveDataToLocalStorage,
-  isNotePinned, getCurrentDateTime
+  clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar
 } from './scripts/utils';
-
-// Reset Form function after Note Addition
-function clearAndConfirmNoteAdd () {
-  noteTitleInput.value = '';
-  noteAuthorInput.value = '';
-  noteTextInput.value = '';
-  // Show confirmation message
-}
 
 // Add a note
 function addNote (event) {
   event.preventDefault();
 
-  // Handle Note Id..
-  const currentId = getDataFromLocalStorage('id') || 0;
-  saveDataToLocalStorage('id', currentId + 1);
+  if (validateAddNoteForm()) {
+    const newNote = createNoteObject(event);
+    const notesList = getDataFromLocalStorage('notesList') || [];
+    notesList.push(newNote);
+    saveDataToLocalStorage('notesList', notesList);
+    clearAndConfirmNoteAdd();
+  }
+}
 
-  // Handle Date
-  const date = getCurrentDateTime();
+// Toggle Pages
+function toggleToAddPage (event) {
+  console.log(event.target);
+}
 
-  // Determine if note should be pinned
-  const isPinned = isNotePinned(event.target);
-
-  const note = {
-    id: currentId,
-    date,
-    isPinned,
-    title: noteTitleInput.value,
-    author: noteAuthorInput.value,
-    noteText: noteTextInput.value
-  };
-
-  const notes = getDataFromLocalStorage('notes') || [];
-  notes.push(note);
-  saveDataToLocalStorage('notes', notes);
-  clearAndConfirmNoteAdd();
+function toggleToNotesPage (event) {
+  console.log(event.target);
 }
 
 // implement event listener for buttons
 function initialEventListenersForAddButtons () {
+  // Add Event
   addNoteButton.addEventListener('click', addNote);
   addPinnedNoteButton.addEventListener('click', addNote);
+
+  // Toggle Sidebar Event
+  sidebarToggleButton.addEventListener('click', toggleSidebar);
+
+  // Pages Button
+  notesPageButton.addEventListener('click', toggleToAddPage);
+  addPageButton.addEventListener('click', toggleToNotesPage);
 }
 
 initialEventListenersForAddButtons();

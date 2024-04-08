@@ -43,8 +43,8 @@
 
 				<!-- Links -->
 				<div class="aside__links">
-					<button class="aside__link"><span class="line"></span>Notes</button>
-					<button class="aside__link">
+					<button class="aside__link" id="notes-page"><span class="line"></span>Notes</button>
+					<button class="aside__link" id="add-page">
 						<span class="line"></span>Add Note
 					</button>
 				</div>
@@ -54,7 +54,7 @@
 			<main class="main">
 				<div class="main__wrap">
 					<!-- Note Page -->
-					<div id="notePage" class="note__page" style="display: none">
+					<div id="notePage" class="note__page" style="display: non">
 						<div class="sidebar">
 							<div class="sidebar-toggle">
 								<button class="sidebar-toggle__button">
@@ -157,10 +157,12 @@
 					</div>
 
 					<!-- Add Page -->
-					<div id="addPage" style="display: non">
+					<div id="addPage" style="display: none">
 						<section class="add__page">
 							<h2 class="note-title">Add Note</h2>
 							<form>
+								<div id="confirmation-message">Note added successfully!</div>
+
 								<div>
 									<label for="title">Title*</label>
 									<input

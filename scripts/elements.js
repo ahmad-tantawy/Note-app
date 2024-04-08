@@ -3,3 +3,7 @@ export const addPinnedNoteButton = document.querySelector('.add-pinned-note-butt
 export const noteTitleInput = document.querySelector('.form-title');
 export const noteAuthorInput = document.querySelector('.form-author');
 export const noteTextInput = document.querySelector('.form-note');
+export const confirmationMessage = document.getElementById('confirmation-message');
+export const sidebarToggleButton = document.querySelector('.sidebar-toggle__button');
+export const notesPageButton = document.querySelector('#notes-page');
+export const addPageButton = document.querySelector('#add-page');
