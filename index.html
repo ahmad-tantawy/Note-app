@@ -43,8 +43,10 @@
 
 				<!-- Links -->
 				<div class="aside__links">
-					<button class="aside__link" id="notes-page"><span class="line"></span>Notes</button>
-					<button class="aside__link" id="add-page">
+					<button class="aside__link" id="notes-page-button">
+						<span class="line"></span>Notes
+					</button>
+					<button class="aside__link" id="add-page-button">
 						<span class="line"></span>Add Note
 					</button>
 				</div>
@@ -54,7 +56,7 @@
 			<main class="main">
 				<div class="main__wrap">
 					<!-- Note Page -->
-					<div id="notePage" class="note__page" style="display: non">
+					<div id="notesPage" class="note__page">
 						<div class="sidebar">
 							<div class="sidebar-toggle">
 								<button class="sidebar-toggle__button">
@@ -69,7 +71,7 @@
 							<!-- Top Part 'PINNED'-->
 							<div class="sidebar__top">
 								<h2 class="sidebar__title pinned">PINNED</h2>
-								<div class="notes-wrapper">
+								<div class="notes-wrapper" data-key="PINNED">
 									<!-- Notes -->
 									<article class="note">
 										<h3 class="note-title">Lorem, ipsum dolor.</h3>
@@ -157,7 +159,7 @@
 					</div>
 
 					<!-- Add Page -->
-					<div id="addPage" style="display: none">
+					<div id="addPage">
 						<section class="add__page">
 							<h2 class="note-title">Add Note</h2>
 							<form>
@@ -186,6 +188,7 @@
 									<textarea name="note" id="note" class="form-note"></textarea>
 								</div>
 								<div>
+									<!-- Data-key attribute to specify whether the note should be pinned or not -->
 									<button class="add-note-button" data-key="false">
 										Add Note
 									</button>

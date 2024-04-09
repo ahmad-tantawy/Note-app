@@ -2,7 +2,8 @@ import {
   noteAuthorInput,
   noteTextInput,
   noteTitleInput,
-  confirmationMessage
+  confirmationMessage, notesPage, addPage, addPageButton
+  , notesPageButton
 } from './elements';
 
 /* eslint-disable */
@@ -89,4 +90,65 @@ export function createNoteObject (event) {
 export function toggleSidebar (event) {
   const sidebar = event.target.closest('.sidebar');
   sidebar.classList.toggle('toggled');
+}
+
+// Toggle Pages
+export function toggleToAddPage (event) {
+  saveDataToLocalStorage('isNotesPage', false);
+  addPageButton.classList.remove('not-active');
+  notesPageButton.classList.add('not-active');
+  notesPage.classList.remove('active-page');
+  addPage.classList.add('active-page');
+}
+
+export function toggleToNotesPage (event) {
+  saveDataToLocalStorage('isNotesPage', true);
+  notesPageButton.classList.remove('not-active');
+  addPageButton.classList.add('not-active');
+  addPage.classList.remove('active-page');
+  notesPage.classList.add('active-page');
+}
+
+// Handle Active Page
+export function handleActivePage () {
+  if (getDataFromLocalStorage('isNotesPage')) {
+    toggleToNotesPage();
+  } else {
+    toggleToAddPage();
+  }
+}
+
+/* eslint-disable */
+// Initial Page
+export const initializeApp = () => {
+  if (!localStorage.getItem('isNotesPage')) {
+    saveDataToLocalStorage('isNotesPage', true);
+  }
+};
+/* eslint-enable */
+
+// Render Notes List
+export function renderNotesList (notesList, containerSelector, filterFunction) {
+  let notes = '';
+  notesList.forEach((note) => {
+    if (filterFunction(note)) {
+      const isPinnedClass = note.isPinned ? 'pinned-note' : '';
+
+      notes += `
+        <article class="note ${isPinnedClass}" data-key="${note.id}">
+          <h3 class="note-title">${note.title}</h3>
+          <p class="note-content">
+            ${note.noteText}
+          </p>
+          <div class="note-footer">
+            <p class="publish-date">${note.date}</p>
+            <button class="delete-button">Delete</button>
+          </div>
+       </article>
+      `;
+    }
+  });
+
+  const notesWrapper = document.querySelector(containerSelector);
+  notesWrapper.innerHTML = notes;
 }

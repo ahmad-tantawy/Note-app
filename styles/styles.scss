@@ -105,6 +105,15 @@
 				height: 2rem;
 				margin-right: 1.2rem;
 				background-color: var(--color-accent-light);
+				transition: all 0.6s ease;
+			}
+
+			// Active Page Style
+			&.not-active {
+				color: var(--color-gray02-light);
+				.line {
+					opacity: 0;
+				}
 			}
 		}
 	}
@@ -112,9 +121,17 @@
 
 // Styles for the Main Section
 .main {
-	#notePage {
-		display: flex;
+	.active-page {
+		display: block;
+	}
+
+	#notesPage {
 		position: relative;
+		display: none;
+
+		&.active-page {
+			display: flex;
+		}
 
 		.sidebar.toggled {
 			position: absolute;
@@ -171,6 +188,11 @@
 			&__top {
 				.notes-wrapper {
 					max-height: 21.3rem;
+
+					/* Override pinned-note class when added with JavaScript */
+					.note.pinned-note {
+						background-color: transparent;
+					}
 				}
 			}
 		}
@@ -287,7 +309,13 @@
 	}
 
 	#addPage {
+		display: none;
 		padding: 11.4rem 37.9rem 23.8rem 20.3rem;
+
+		&.active-page {
+			display: block;
+		}
+
 		.add__page {
 			padding-right: 10rem;
 

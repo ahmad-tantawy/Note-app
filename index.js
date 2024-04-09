@@ -1,12 +1,11 @@
 import {
-  addNoteButton,
-  addPinnedNoteButton, sidebarToggleButton, notesPageButton,
-  addPageButton
+  addNoteButton, addPinnedNoteButton, sidebarToggleButton,
+  notesPageButton, addPageButton
 } from './scripts/elements';
 import {
-  getDataFromLocalStorage,
-  saveDataToLocalStorage,
-  clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar
+  getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar,
+  toggleToNotesPage, toggleToAddPage, initializeApp,
+  handleActivePage, renderNotesList
 } from './scripts/utils';
 
 // Add a note
@@ -16,23 +15,35 @@ function addNote (event) {
   if (validateAddNoteForm()) {
     const newNote = createNoteObject(event);
     const notesList = getDataFromLocalStorage('notesList') || [];
-    notesList.push(newNote);
+    notesList.unshift(newNote);
     saveDataToLocalStorage('notesList', notesList);
     clearAndConfirmNoteAdd();
+    renderNotesLists();
+    addDeleteEventListeners();
   }
 }
 
-// Toggle Pages
-function toggleToAddPage (event) {
-  console.log(event.target);
+// Function to handle delete button clicks
+function deleteButtonClickHandler (event) {
+  const noteId = event.target.closest('.note').getAttribute('data-key');
+  let notesList = getDataFromLocalStorage('notesList');
+
+  notesList = notesList.filter(note => note.id.toString() !== noteId);
+  saveDataToLocalStorage('notesList', notesList);
+  renderNotesLists();
+  addDeleteEventListeners();
 }
 
-function toggleToNotesPage (event) {
-  console.log(event.target);
+// Function to add event listeners to delete buttons
+function addDeleteEventListeners () {
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', deleteButtonClickHandler);
+  });
 }
 
 // implement event listener for buttons
-function initialEventListenersForAddButtons () {
+function initialEventListeners () {
   // Add Event
   addNoteButton.addEventListener('click', addNote);
   addPinnedNoteButton.addEventListener('click', addNote);
@@ -41,8 +52,22 @@ function initialEventListenersForAddButtons () {
   sidebarToggleButton.addEventListener('click', toggleSidebar);
 
   // Pages Button
-  notesPageButton.addEventListener('click', toggleToAddPage);
-  addPageButton.addEventListener('click', toggleToNotesPage);
+  notesPageButton.addEventListener('click', toggleToNotesPage);
+  addPageButton.addEventListener('click', toggleToAddPage);
+
+  // Add event listeners to delete buttons
+  addDeleteEventListeners();
 }
 
-initialEventListenersForAddButtons();
+// Render Notes List
+function renderNotesLists () {
+  const notesList = getDataFromLocalStorage('notesList') || [];
+
+  renderNotesList(notesList, '.sidebar__bottom .notes-wrapper', () => true);
+  renderNotesList(notesList, '.sidebar__top .notes-wrapper', (note) => note.isPinned);
+}
+
+initializeApp();
+handleActivePage();
+renderNotesLists();
+initialEventListeners();
