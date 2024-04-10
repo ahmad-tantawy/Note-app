@@ -3,7 +3,7 @@ import {
   noteTextInput,
   noteTitleInput,
   confirmationMessage, notesPage, addPage, addPageButton
-  , notesPageButton
+  , notesPageButton, NoteDetailsWrapElement
 } from './elements';
 
 /* eslint-disable */
@@ -135,7 +135,7 @@ export function renderNotesList (notesList, containerSelector, filterFunction) {
       const isPinnedClass = note.isPinned ? 'pinned-note' : '';
 
       notes += `
-        <article class="note ${isPinnedClass}" data-key="${note.id}">
+        <article class="draggable note ${isPinnedClass}" data-key="${note.id}">
           <h3 class="note-title">${note.title}</h3>
           <p class="note-content">
             ${note.noteText}
@@ -151,4 +151,102 @@ export function renderNotesList (notesList, containerSelector, filterFunction) {
 
   const notesWrapper = document.querySelector(containerSelector);
   notesWrapper.innerHTML = notes;
+}
+
+// Function to retrieve the previous note ID from local storage
+export function getPreviousNoteId () {
+  return getDataFromLocalStorage('previousNoteId') || null;
+}
+
+// Function to check if a note with the given ID exists in the notes list
+export function isNoteExist (noteId, notesList) {
+  return notesList.some((note) => note.id.toString() === noteId);
+}
+
+// Function to retrieve the note with the given ID from the notes list
+export function getNoteById (noteId, notesList) {
+  return notesList.find((note) => note.id.toString() === noteId);
+}
+
+// Function to render the note details
+export function renderNoteDetails (note) {
+  if (!note) return;
+
+  const createdNote = `
+    <article class="note">
+      <h2 class="note-title">${note.title}</h2>
+      <p class="note-date">${note.date}<span class="note-author"> / By ${note.author}</span></p>
+      <p class="note-content">${note.noteText}</p>
+    </article>`;
+
+  NoteDetailsWrapElement.innerHTML = createdNote;
+}
+
+// Function to handle the note click event and render the note details
+export function handleNoteClick (event) {
+  const noteId = event.target.closest('.note').getAttribute('data-key');
+  const isDeleteButtonClicked = event.target.classList.contains('delete-button');
+
+  if (!isDeleteButtonClicked) {
+    saveDataToLocalStorage('previousNoteId', noteId);
+  }
+
+  const notesList = getDataFromLocalStorage('notesList') || [];
+  const note = getNoteById(noteId, notesList);
+  renderNoteDetails(note);
+}
+
+/* eslint-disable */
+// Function to handle the case when no notes are available
+export function handleNoNotes () {
+  NoteDetailsWrapElement.innerHTML = '<p>No details to show</p>';
+  localStorage.removeItem('previousNoteId');
+  saveDataToLocalStorage('id', 0);
+}
+/* eslint-enable */
+
+// Function to add click event handlers to notes
+export function addNoteClickHandlers (notes) {
+  notes.forEach((note) => {
+    note.addEventListener('click', handleNoteClick);
+  });
+}
+
+// Function to handle the previous note ID
+export function handlePreviousNoteId (previousNoteId, notesList) {
+  if (previousNoteId && isNoteExist(previousNoteId, notesList)) {
+    const previousNote = getNoteById(previousNoteId, notesList);
+    renderNoteDetails(previousNote);
+    return true;
+  }
+  return false;
+}
+
+// Function to handle default note rendering
+export function handleDefaultNoteRendering (notesList) {
+  if (notesList.length > 0) {
+    const firstNote = notesList[0];
+    renderNoteDetails(firstNote);
+    saveDataToLocalStorage('previousNoteId', firstNote.id.toString());
+  }
+}
+
+// Function to handle the details page view
+export function handleDetailsPageView () {
+  const allDomNotes = document.querySelectorAll('.notes-wrapper .note');
+  if (!allDomNotes.length) {
+    handleNoNotes();
+    return;
+  }
+
+  addNoteClickHandlers(allDomNotes);
+
+  const previousNoteId = getPreviousNoteId();
+  const notesList = getDataFromLocalStorage('notesList') || [];
+
+  if (handlePreviousNoteId(previousNoteId, notesList)) {
+    return;
+  }
+
+  handleDefaultNoteRendering(notesList);
 }

@@ -49,6 +49,7 @@
 	height: 100vh;
 	padding-left: 24px;
 	background-color: #f6f6f6;
+	border-right: 0.1rem solid var(--color-gray03-light);
 
 	// Header Styles
 	.header {
@@ -135,12 +136,13 @@
 
 		.sidebar.toggled {
 			position: absolute;
-			left: -32.2rem;
+			left: -2rem;
+			min-width: 2rem;
+			border: none;
 
 			.sidebar__top,
 			.sidebar__bottom {
-				position: relative;
-				z-index: -1;
+				display: none;
 			}
 
 			.sidebar-toggle__icon {
@@ -152,10 +154,10 @@
 		.sidebar {
 			position: relative;
 			height: 100vh;
-			width: 32.2rem;
+			min-width: 32.2rem;
 			padding-top: 4.8rem;
-			border: 0.1rem solid var(--color-gray03-light);
-			border-width: 0 1px;
+			border-right: 0.1rem solid var(--color-gray03-light);
+			transition: all 1s ease;
 
 			&-toggle {
 				position: absolute;
@@ -243,6 +245,7 @@
 				&-footer {
 					display: flex;
 					justify-content: space-between;
+					line-height: 2rem;
 					.delete-button {
 						margin-right: 1.5rem;
 						color: var(--color-errors-light);
@@ -257,6 +260,7 @@
 
 			.pinned-note {
 				background-color: var(--color-gray04-light);
+				border-radius: var(--border-radius);
 			}
 		}
 
@@ -280,6 +284,7 @@
 					}
 					&-date {
 						font-size: var(--font-size-13);
+						line-height: 2rem;
 						color: var(--color-gray02-light);
 						margin-bottom: 3.9rem;
 					}

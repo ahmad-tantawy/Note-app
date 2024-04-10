@@ -4,9 +4,16 @@ import {
 } from './scripts/elements';
 import {
   getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar,
-  toggleToNotesPage, toggleToAddPage, initializeApp,
-  handleActivePage, renderNotesList
+  toggleToNotesPage, toggleToAddPage, initializeApp, handleActivePage, renderNotesList, handleDetailsPageView
 } from './scripts/utils';
+
+// Function to add event listeners to delete buttons
+function addDeleteEventListeners () {
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', deleteButtonClickHandler);
+  });
+}
 
 // Add a note
 function addNote (event) {
@@ -34,14 +41,6 @@ function deleteButtonClickHandler (event) {
   addDeleteEventListeners();
 }
 
-// Function to add event listeners to delete buttons
-function addDeleteEventListeners () {
-  const deleteButtons = document.querySelectorAll('.delete-button');
-  deleteButtons.forEach((button) => {
-    button.addEventListener('click', deleteButtonClickHandler);
-  });
-}
-
 // implement event listener for buttons
 function initialEventListeners () {
   // Add Event
@@ -65,6 +64,8 @@ function renderNotesLists () {
 
   renderNotesList(notesList, '.sidebar__bottom .notes-wrapper', () => true);
   renderNotesList(notesList, '.sidebar__top .notes-wrapper', (note) => note.isPinned);
+
+  handleDetailsPageView();
 }
 
 initializeApp();
