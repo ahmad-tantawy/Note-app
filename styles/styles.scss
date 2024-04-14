@@ -43,6 +43,38 @@
 	overflow-x: hidden;
 }
 
+// Delete animation
+.deleted {
+	animation: fadeOutMoveLeft 0.6s ease-in;
+	border-radius: var(--border-radius);
+	border: 1px solid #ff0000;
+	border-width: 1px 0;
+}
+
+@keyframes fadeOutMoveLeft {
+	0% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	50% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateX(-150px);
+	}
+}
+
+.drag-over {
+	border-radius: 0.7rem;
+	background-color: var(--color-gray04-light);
+	border-bottom: 1px solid #3a7bfd;
+	transition: transform 0.3s ease;
+}
+
 // Styles for the Aside Section
 .aside {
 	min-width: 25.8rem;
@@ -228,6 +260,7 @@
 				margin: 0 auto 1rem;
 				font-size: var(--font-size-13);
 				color: var(--color-gray02-light);
+				user-select: none;
 
 				&-title {
 					@include text-style(
@@ -246,6 +279,9 @@
 					display: flex;
 					justify-content: space-between;
 					line-height: 2rem;
+					.publish-date .note-author {
+						display: none;
+					}
 					.delete-button {
 						margin-right: 1.5rem;
 						color: var(--color-errors-light);

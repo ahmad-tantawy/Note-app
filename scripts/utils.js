@@ -135,13 +135,13 @@ export function renderNotesList (notesList, containerSelector, filterFunction) {
       const isPinnedClass = note.isPinned ? 'pinned-note' : '';
 
       notes += `
-        <article class="draggable note ${isPinnedClass}" data-key="${note.id}">
+        <article class="draggable note ${isPinnedClass}" data-key="${note.id}" draggable="true">
           <h3 class="note-title">${note.title}</h3>
           <p class="note-content">
             ${note.noteText}
           </p>
           <div class="note-footer">
-            <p class="publish-date">${note.date}</p>
+            <p class="publish-date">${note.date} <span class="note-author">${note.author}</span></p>
             <button class="delete-button">Delete</button>
           </div>
        </article>
@@ -192,7 +192,8 @@ export function handleNoteClick (event) {
   }
 
   const notesList = getDataFromLocalStorage('notesList') || [];
-  const note = getNoteById(noteId, notesList);
+  const previousId = getDataFromLocalStorage('previousNoteId');
+  const note = getNoteById(previousId, notesList);
   renderNoteDetails(note);
 }
 
@@ -249,4 +250,66 @@ export function handleDetailsPageView () {
   }
 
   handleDefaultNoteRendering(notesList);
+}
+
+// Order Localstorge list based on index after the user darg and drop
+export const updateLocalStorageWithNewOrder = () => {
+  const notesArray = Array.from(document.querySelectorAll('.sidebar__bottom .notes-wrapper .note')).map(noteElement => ({
+    id: noteElement.dataset.key,
+    title: noteElement.querySelector('.note-title').innerText,
+    noteText: noteElement.querySelector('.note-content').innerText,
+    date: noteElement.querySelector('.publish-date').innerText,
+    author: noteElement.querySelector('.note-author').innerText,
+    isPinned: noteElement.classList.contains('pinned-note')
+  }));
+
+  saveDataToLocalStorage('notesList', notesArray);
+};
+
+export function draggableNotesHandler () {
+  // Get all draggable note elements
+  const draggableNotes = document.querySelectorAll('.sidebar__bottom .draggable.note');
+  let draggedNote;
+
+  draggableNotes.forEach(note => {
+    note.addEventListener('dragstart', event => {
+      draggedNote = event.target.closest('.draggable');
+      if (draggedNote) {
+        draggedNote.classList.add('drag-over');
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', draggedNote.innerHTML);
+      }
+    });
+
+    note.addEventListener('dragend', () => {
+      if (draggedNote) {
+        draggedNote.classList.remove('drag-over');
+        draggedNote = null;
+      }
+    });
+
+    note.addEventListener('dragover', event => {
+      event.preventDefault();
+      const target = event.target.closest('.draggable');
+      if (draggedNote && target && draggedNote !== target) {
+        const bounding = target.getBoundingClientRect();
+        const containerScrollTop = target.parentNode.scrollTop; // Get the container's scroll position
+        const offset = bounding.top + bounding.height / 2 - containerScrollTop; // Adjust for container's scroll position
+        if (event.clientY < offset) {
+          draggableNotes.forEach(n => {
+            if (n === draggedNote) {
+              target.parentNode.insertBefore(draggedNote, target);
+            }
+          });
+        } else {
+          draggableNotes.forEach(n => {
+            if (n === draggedNote) {
+              target.parentNode.insertBefore(draggedNote, target.nextSibling);
+            }
+          });
+        }
+      }
+      updateLocalStorageWithNewOrder();
+    });
+  });
 }

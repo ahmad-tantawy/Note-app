@@ -10,3 +10,4 @@ export const addPageButton = document.querySelector('#add-page-button');
 export const notesPage = document.querySelector('#notesPage');
 export const addPage = document.querySelector('#addPage');
 export const NoteDetailsWrapElement = document.querySelector('.content__note-wrap');
+export const addIconButton = document.querySelector('.add-icon');
