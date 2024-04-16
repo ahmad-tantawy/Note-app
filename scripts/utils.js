@@ -313,3 +313,12 @@ export function draggableNotesHandler () {
     });
   });
 }
+
+export function highlightFirstNote () {
+  const firstNote = document.querySelector('.sidebar__bottom .notes-wrapper > .note');
+
+  firstNote.classList.add('highlighted-note');
+  setTimeout(() => {
+    firstNote.classList.remove('highlighted-note');
+  }, 1210);
+}

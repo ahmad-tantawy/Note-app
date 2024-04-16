@@ -68,10 +68,35 @@
 	}
 }
 
+.highlighted-note {
+	border: 1px solid green;
+	border-width: 1px 0;
+	border-radius: var(--border-radius);
+	background-color: var(--color-gray03-light);
+	animation: fadeInMoveRight 1.2s ease-in;
+}
+
+@keyframes fadeInMoveRight {
+	0% {
+		opacity: 0;
+		transform: translateX(-150px);
+	}
+
+	50% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 .drag-over {
 	border-radius: 0.7rem;
 	background-color: var(--color-gray04-light);
-	border-bottom: 1px solid #3a7bfd;
+	border-bottom: 1px solid var(--color-accent-light);
 	transition: transform 0.3s ease;
 }
 

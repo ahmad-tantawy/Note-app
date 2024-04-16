@@ -11,3 +11,6 @@ export const notesPage = document.querySelector('#notesPage');
 export const addPage = document.querySelector('#addPage');
 export const NoteDetailsWrapElement = document.querySelector('.content__note-wrap');
 export const addIconButton = document.querySelector('.add-icon');
+export const searchButtonElement = document.querySelector('.search-button');
+export const searchInputElement = document.querySelector('.search-input');
+export const searchFormElement = document.querySelector('.search-form');

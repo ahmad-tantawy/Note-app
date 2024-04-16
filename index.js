@@ -1,10 +1,11 @@
 import {
   addNoteButton, addPinnedNoteButton, sidebarToggleButton,
-  notesPageButton, addPageButton, addIconButton
+  notesPageButton, addPageButton, addIconButton, searchFormElement,
+  searchInputElement
 } from './scripts/elements';
 import {
   getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar,
-  toggleToNotesPage, toggleToAddPage, initializeApp, handleActivePage, renderNotesList, handleDetailsPageView, draggableNotesHandler
+  toggleToNotesPage, toggleToAddPage, initializeApp, handleActivePage, renderNotesList, handleDetailsPageView, draggableNotesHandler, highlightFirstNote
 } from './scripts/utils';
 
 // Function to add event listeners to delete buttons
@@ -68,22 +69,43 @@ function deleteButtonClickHandler (event) {
 
 // implement event listener for buttons
 function initialEventListeners () {
-  // Add Event
   addNoteButton.addEventListener('click', addNote);
   addPinnedNoteButton.addEventListener('click', addNote);
-
-  // Toggle Sidebar Event
   sidebarToggleButton.addEventListener('click', toggleSidebar);
-
-  // Pages Button
   notesPageButton.addEventListener('click', toggleToNotesPage);
   addPageButton.addEventListener('click', toggleToAddPage);
-
-  // Add Icon Button Event
   addIconButton.addEventListener('click', toggleToAddPage);
 
-  // Add event listeners to delete buttons
   addDeleteEventListeners();
+  searchFormElement.addEventListener('submit', event => {
+    event.preventDefault();
+    const searchValue = searchInputElement.value;
+    if (searchValue) {
+      searchHandler(event, searchValue);
+      searchInputElement.value = '';
+    }
+  });
+
+  searchInputElement.addEventListener('focus', () => { searchInputElement.placeholder = 'Search .....🧐'; });
+  searchInputElement.addEventListener('blur', () => { searchInputElement.placeholder = 'Search'; });
+}
+
+function searchHandler (event, searchValue) {
+  event.preventDefault();
+  let notesList = getDataFromLocalStorage('notesList');
+
+  const filteredNotes = notesList.filter(note => {
+    const isfound = note.title.includes(searchValue) || note.noteText.includes(searchValue) || note.author.includes(searchValue);
+    return isfound;
+  });
+
+  if (filteredNotes.length > 0) {
+    notesList = filteredNotes.concat(notesList.filter(note => !filteredNotes.includes(note)));
+    saveDataToLocalStorage('notesList', notesList);
+    renderNotesLists();
+    highlightFirstNote();
+    initialEventListeners();
+  }
 }
 
 // Render Notes List
