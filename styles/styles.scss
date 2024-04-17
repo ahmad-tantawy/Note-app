@@ -40,7 +40,8 @@
 // Global Style
 .container {
 	display: flex;
-	overflow-x: hidden;
+	width: 100vw;
+	height: 100vh;
 }
 
 // Delete animation
@@ -103,13 +104,18 @@
 // Styles for the Aside Section
 .aside {
 	min-width: 25.8rem;
-	height: 100vh;
+	height: 100%;
 	padding-left: 24px;
 	background-color: #f6f6f6;
 	border-right: 0.1rem solid var(--color-gray03-light);
 
 	// Header Styles
 	.header {
+		// Hide any element related to mobile responsive
+		.header-top *:not(.logo) {
+			display: none;
+		}
+
 		.logo {
 			@include aclonica-regular;
 			margin-top: 41px;
@@ -179,313 +185,405 @@
 
 // Styles for the Main Section
 .main {
-	.active-page {
-		display: block;
-	}
-
-	#notesPage {
-		position: relative;
-		display: none;
-
-		&.active-page {
-			display: flex;
+	height: 100%;
+	width: 100%;
+	&__wrap {
+		.active-page {
+			display: block;
 		}
 
-		.sidebar.toggled {
-			position: absolute;
-			left: -2rem;
-			min-width: 2rem;
-			border: none;
-
-			.sidebar__top,
-			.sidebar__bottom {
-				display: none;
-			}
-
-			.sidebar-toggle__icon {
-				transform: rotate(-180deg);
-				transition: all 3s ease;
-			}
-		}
-
-		.sidebar {
+		#notesPage {
 			position: relative;
-			height: 100vh;
-			min-width: 32.2rem;
-			padding-top: 4.8rem;
-			border-right: 0.1rem solid var(--color-gray03-light);
-			transition: all 1s ease;
+			height: 100%;
+			width: 100%;
+			display: none;
 
-			&-toggle {
+			&.active-page {
+				display: flex;
+			}
+
+			.sidebar.toggled {
 				position: absolute;
-				right: -1.45rem;
-				top: 12.917rem;
+				left: -2rem;
+				min-width: 2rem;
+				border: none;
 
-				&__icon {
-					transform: rotate(360deg);
-					transition: all var(--transition-timing) ease;
+				.sidebar__top,
+				.sidebar__bottom {
+					display: none;
+				}
+
+				.sidebar-toggle__icon {
+					transform: rotate(-180deg);
+					transition: all 3s ease;
 				}
 			}
 
-			&__title {
-				@include text-style(
-					$size: var(--font-size-13),
-					$line-height: 2rem,
-					$color: var(--color-accent-light)
-				);
-			}
-			.pinned {
-				padding-left: 2.8rem;
-				margin-bottom: 0.6rem;
-			}
-			.notes {
-				margin: 1.4rem 0 1.9rem;
-				padding: 1rem 0 0.8rem 2.8rem;
-				border: 0.1rem solid var(--color-gray03-light);
-				border-width: 1px 0;
-			}
-			&__top {
-				.notes-wrapper {
-					max-height: 21.3rem;
-
-					/* Override pinned-note class when added with JavaScript */
-					.note.pinned-note {
-						background-color: transparent;
-					}
-				}
-			}
-		}
-
-		.notes-wrapper {
-			max-height: 39rem;
-			overflow-y: auto;
-			@media (min-height: 848px) {
-				max-height: 59rem;
-			}
-
-			&::-webkit-scrollbar {
-				width: 0.5rem;
-				border-radius: 5px;
-			}
-			&::-webkit-scrollbar-track {
-				background: transparent;
-				border-top-right-radius: 5px;
-			}
-			&::-webkit-scrollbar-thumb {
-				background: var(--color-accent-light);
-				border-radius: 5px;
-			}
-			&::-webkit-scrollbar-thumb:hover {
-				background: var(--color-hover-light);
-			}
-
-			.note {
-				width: 29.8rem;
-				padding: 1.1rem 1.6rem 0.6rem;
-				margin: 0 auto 1rem;
-				font-size: var(--font-size-13);
-				color: var(--color-gray02-light);
-				user-select: none;
-
-				&-title {
-					@include text-style(
-						$size: var(--font-size-16),
-						$line-height: 2.7rem,
-						$color: var(--color-primary-light)
-					);
-					margin-bottom: 0.3rem;
-				}
-				&-content {
-					margin-bottom: 1.6rem;
-					max-height: 5.1rem;
-					overflow: hidden;
-				}
-				&-footer {
-					display: flex;
-					justify-content: space-between;
-					line-height: 2rem;
-					.publish-date .note-author {
-						display: none;
-					}
-					.delete-button {
-						margin-right: 1.5rem;
-						color: var(--color-errors-light);
-					}
-				}
-			}
-
-			.active-note .note-title {
-				font-size: var(--font-size-20);
-				line-height: 2rem;
-			}
-
-			.pinned-note {
-				background-color: var(--color-gray04-light);
-				border-radius: var(--border-radius);
-			}
-		}
-
-		// Styles for the Content
-		.content {
-			min-width: 83rem;
-			height: 100vh;
-
-			&-wrap {
+			.sidebar {
 				position: relative;
-				margin: 11.4rem 15.3rem 0 9.9rem;
+				height: 100%;
+				min-width: 32.2rem;
+				padding-top: 4.8rem;
+				border-right: 0.1rem solid var(--color-gray03-light);
+				transition: all 1s ease;
+
+				&-toggle {
+					position: absolute;
+					right: -1.45rem;
+					top: 12.917rem;
+
+					&__icon {
+						transform: rotate(360deg);
+						transition: all var(--transition-timing) ease;
+					}
+				}
+
+				&__title {
+					@include text-style(
+						$size: var(--font-size-13),
+						$line-height: 2rem,
+						$color: var(--color-accent-light)
+					);
+				}
+				.pinned {
+					padding-left: 2.8rem;
+					margin-bottom: 0.6rem;
+				}
+				.notes {
+					margin: 1.4rem 0 1.9rem;
+					padding: 1rem 0 0.8rem 2.8rem;
+					border: 0.1rem solid var(--color-gray03-light);
+					border-width: 1px 0;
+				}
+				&__top {
+					.notes-wrapper {
+						max-height: 21.3rem;
+
+						/* Override pinned-note class when added with JavaScript */
+						.note.pinned-note {
+							background-color: transparent;
+						}
+					}
+				}
+			}
+
+			.notes-wrapper {
+				max-height: 39rem;
+				overflow-y: auto;
+				@media (min-height: 848px) {
+					max-height: 59rem;
+				}
+
+				&::-webkit-scrollbar {
+					width: 0.5rem;
+					border-radius: 5px;
+				}
+				&::-webkit-scrollbar-track {
+					background: transparent;
+					border-top-right-radius: 5px;
+				}
+				&::-webkit-scrollbar-thumb {
+					background: var(--color-accent-light);
+					border-radius: 5px;
+				}
+				&::-webkit-scrollbar-thumb:hover {
+					background: var(--color-hover-light);
+				}
 
 				.note {
+					width: 29.8rem;
+					padding: 1.1rem 1.6rem 0.6rem;
+					margin: 0 auto 1rem;
+					font-size: var(--font-size-13);
+					color: var(--color-gray02-light);
+					user-select: none;
+
 					&-title {
-						@include text-style(
-							$size: var(--font-size-26),
-							$line-height: 3.1rem,
-							$color: var(--color-primary-light)
-						);
-						margin-bottom: 1.2rem;
-					}
-					&-date {
-						font-size: var(--font-size-13);
-						line-height: 2rem;
-						color: var(--color-gray02-light);
-						margin-bottom: 3.9rem;
-					}
-					&-content {
-						width: 100%;
-						text-align: justify;
 						@include text-style(
 							$size: var(--font-size-16),
 							$line-height: 2.7rem,
 							$color: var(--color-primary-light)
 						);
+						margin-bottom: 0.3rem;
+					}
+					&-content {
+						margin-bottom: 1.6rem;
+						max-height: 5.1rem;
+						overflow: hidden;
+					}
+					&-footer {
+						display: flex;
+						justify-content: space-between;
+						line-height: 2rem;
+						.publish-date .note-author {
+							display: none;
+						}
+						.delete-button {
+							margin-right: 1.5rem;
+							color: var(--color-errors-light);
+						}
 					}
 				}
 
-				.add-icon {
-					position: absolute;
-					right: -9.1rem;
-					bottom: -2.533rem;
-					width: 65px;
-					height: 65px;
-					border-radius: 50%;
-					background: url(../images/add-icon.svg) no-repeat;
-					background-position: -25px -16px;
+				.active-note .note-title {
+					font-size: var(--font-size-20);
+					line-height: 2rem;
+				}
+
+				.pinned-note {
+					background-color: var(--color-gray04-light);
+					border-radius: var(--border-radius);
+				}
+			}
+
+			// Styles for the Content
+			.content {
+				width: 100%;
+				word-break: break-all;
+				&-wrap {
+					position: relative;
+					margin: 11.4rem 15.3rem 1rem 9.9rem;
+					.content__note-wrap {
+						max-height: 70vh;
+						overflow-y: auto;
+						&::-webkit-scrollbar {
+							width: 0.5rem;
+							border-radius: 5px;
+						}
+						&::-webkit-scrollbar-track {
+							background: transparent;
+							border-top-right-radius: 5px;
+						}
+						&::-webkit-scrollbar-thumb {
+							background: var(--color-accent-light);
+							border-radius: 5px;
+						}
+						&::-webkit-scrollbar-thumb:hover {
+							background: var(--color-hover-light);
+						}
+						.note {
+							&-title {
+								@include text-style(
+									$size: var(--font-size-26),
+									$line-height: 3.1rem,
+									$color: var(--color-primary-light)
+								);
+								margin-bottom: 1.2rem;
+							}
+							&-date {
+								font-size: var(--font-size-13);
+								line-height: 2rem;
+								color: var(--color-gray02-light);
+								margin-bottom: 3.9rem;
+							}
+							&-content {
+								text-align: justify;
+								@include text-style(
+									$size: var(--font-size-16),
+									$line-height: 2.7rem,
+									$color: var(--color-primary-light)
+								);
+							}
+						}
+					}
+					.add-icon {
+						position: absolute;
+						right: -9.1rem;
+						bottom: -2.533rem;
+						width: 65px;
+						height: 65px;
+						border-radius: 50%;
+						background: url(../images/add-icon.svg) no-repeat;
+						background-position: -25px -16px;
+					}
+				}
+			}
+		}
+
+		#addPage {
+			display: none;
+			height: 100%;
+			width: 100%;
+			padding: 11.4rem 37.9rem 23.8rem 20.3rem;
+
+			&.active-page {
+				display: block;
+			}
+
+			.add__page {
+				padding-right: 10rem;
+
+				.note-title {
+					@include text-style(
+						$size: var(--font-size-26),
+						$line-height: 3.1rem,
+						$color: var(--color-primary-light)
+					);
+					margin-bottom: 3.6rem;
+				}
+
+				form {
+					position: relative;
+					// Confirmation Style
+					#confirmation-message {
+						position: absolute;
+						display: none;
+						width: 100%;
+						color: green;
+						user-select: none;
+						text-align: center;
+						padding: 2.25rem 5rem;
+						border: 1px solid green;
+						font-weight: var(--font-weight-bold);
+						border-radius: var(--border-radius);
+						background-color: var(--color-gray03-light);
+						animation: fadeinout 3s ease;
+					}
+
+					@keyframes fadeinout {
+						0% {
+							opacity: 0;
+						}
+						50% {
+							opacity: 1;
+						}
+						80% {
+							opacity: 1;
+							transform: translateY(50%);
+						}
+						100% {
+							opacity: 0;
+							transform: translateY(100%);
+						}
+					}
+
+					.required-input {
+						animation: fadeinout-errors 3s ease;
+					}
+
+					@keyframes fadeinout-errors {
+						0% {
+							border: 1px solid transparent;
+						}
+						50% {
+							border: 1px solid var(--color-errors-light);
+						}
+						100% {
+							border: 1px solid transparent;
+						}
+					}
+				}
+
+				form label {
+					@include text-style(
+						$size: var(--font-size-13),
+						$line-height: 2rem,
+						$color: var(--color-gray02-light)
+					);
+				}
+
+				form input,
+				textarea {
+					width: 50rem;
+					height: 4.5rem;
+					margin: 0.6rem 0 3.9rem;
+					padding: 1rem;
+					border-radius: var(--border-radius);
+					background-color: var(--color-gray04-light);
+				}
+				textarea,
+				textarea:active,
+				textarea:hover,
+				textarea:focus {
+					height: 15rem;
+					margin-bottom: 4.8rem;
+					resize: none;
+					line-height: 1.5;
+				}
+
+				button {
+					@include text-style(
+						$size: var(--font-size-13),
+						$line-height: 2rem,
+						$color: var(--color-white-light)
+					);
+					padding: 1rem 2.2rem;
+					border-radius: 0.5rem;
+					background-color: var(--color-accent-light);
+
+					&:not(:nth-child(2)) {
+						margin-right: 2.7rem;
+					}
 				}
 			}
 		}
 	}
+}
 
-	#addPage {
-		display: none;
-		padding: 11.4rem 37.9rem 23.8rem 20.3rem;
-
-		&.active-page {
-			display: block;
+@media (min-width: 992px) and (max-width: 1200px) {
+	.aside {
+		padding-left: 1rem;
+		min-width: 21rem;
+		.header {
+			.search-form {
+				width: 19rem;
+				.search-input {
+					width: 15rem;
+				}
+			}
 		}
-
-		.add__page {
-			padding-right: 10rem;
-
-			.note-title {
-				@include text-style(
-					$size: var(--font-size-26),
-					$line-height: 3.1rem,
-					$color: var(--color-primary-light)
-				);
-				margin-bottom: 3.6rem;
+	}
+	.main {
+		#notesPage {
+			.sidebar {
+				min-width: 25rem;
 			}
+			.notes-wrapper {
+				.note {
+					width: 23rem;
+				}
+			}
+			.content {
+				min-width: 50rem;
+				&-wrap {
+					margin: 10rem 10.3rem 0 6rem;
+					.add-icon {
+						right: 0;
+						bottom: -8rem;
+					}
+				}
+			}
+		}
+	}
+}
 
-			form {
-				position: relative;
-				// Confirmation Style
-				#confirmation-message {
-					position: absolute;
+@media (min-width: 320px) and (max-width: 992px) {
+	.container {
+		.aside {
+			.header {
+				position: fixed;
+				width: 100vw;
+				left: 0;
+				.header-top {
+					display: flex;
+					justify-content: space-between;
+					padding: 1.9rem 1.6rem;
+					align-items: center;
+					border: 2px solid red;
+					.close-icon {
+						display: none;
+					}
+					& * {
+						display: block;
+						margin: 0;
+					}
+				}
+				.search-form {
 					display: none;
-					width: 100%;
-					color: green;
-					user-select: none;
-					text-align: center;
-					padding: 2.25rem 5rem;
-					border: 1px solid green;
-					font-weight: var(--font-weight-bold);
-					border-radius: var(--border-radius);
-					background-color: var(--color-gray03-light);
-					animation: fadeinout 3s ease;
-				}
-
-				@keyframes fadeinout {
-					0% {
-						opacity: 0;
-					}
-					50% {
-						opacity: 1;
-					}
-					80% {
-						opacity: 1;
-						transform: translateY(50%);
-					}
-					100% {
-						opacity: 0;
-						transform: translateY(100%);
-					}
-				}
-
-				.required-input {
-					animation: fadeinout-errors 3s ease;
-				}
-
-				@keyframes fadeinout-errors {
-					0% {
-						border: 1px solid transparent;
-					}
-					50% {
-						border: 1px solid var(--color-errors-light);
-					}
-					100% {
-						border: 1px solid transparent;
-					}
 				}
 			}
-
-			form label {
-				@include text-style(
-					$size: var(--font-size-13),
-					$line-height: 2rem,
-					$color: var(--color-gray02-light)
-				);
-			}
-
-			form input,
-			textarea {
-				width: 50rem;
-				height: 4.5rem;
-				margin: 0.6rem 0 3.9rem;
-				padding: 1rem;
-				border-radius: var(--border-radius);
-				background-color: var(--color-gray04-light);
-			}
-			textarea,
-			textarea:active,
-			textarea:hover,
-			textarea:focus {
-				height: 15rem;
-				margin-bottom: 4.8rem;
-				resize: none;
-				line-height: 1.5;
-			}
-
-			button {
-				@include text-style(
-					$size: var(--font-size-13),
-					$line-height: 2rem,
-					$color: var(--color-white-light)
-				);
-				padding: 1rem 2.2rem;
-				border-radius: 0.5rem;
-				background-color: var(--color-accent-light);
-
-				&:not(:nth-child(2)) {
-					margin-right: 2.7rem;
-				}
+			.aside__links {
+				margin: 7.9rem 9.5rem 0 1.536rem;
 			}
 		}
 	}
