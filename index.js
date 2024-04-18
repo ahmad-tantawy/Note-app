@@ -1,7 +1,7 @@
 import {
   addNoteButton, addPinnedNoteButton, sidebarToggleButton,
   notesPageButton, addPageButton, addIconButton, searchFormElement,
-  searchInputElement
+  searchInputElement, toggleFormElement, searchIconElement, closeIconElement
 } from './scripts/elements';
 import {
   getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar,
@@ -67,6 +67,22 @@ function deleteButtonClickHandler (event) {
   }
 }
 
+function toggleFormHandler (event) {
+  const headerElement = event.target.closest('#mobile-header');
+  console.log(headerElement);
+  if (searchIconElement.style.display === 'none') {
+    searchIconElement.style.display = 'block';
+    closeIconElement.style.display = 'none';
+    searchFormElement.style.display = 'none';
+    headerElement.style.backgroundColor = 'var(--color-white-light)';
+  } else {
+    searchIconElement.style.display = 'none';
+    closeIconElement.style.display = 'block';
+    searchFormElement.style.display = 'flex';
+    headerElement.style.backgroundColor = 'var(--color-gray04-light)';
+  }
+}
+
 // implement event listener for buttons
 function initialEventListeners () {
   addNoteButton.addEventListener('click', addNote);
@@ -75,6 +91,7 @@ function initialEventListeners () {
   notesPageButton.addEventListener('click', toggleToNotesPage);
   addPageButton.addEventListener('click', toggleToAddPage);
   addIconButton.addEventListener('click', toggleToAddPage);
+  toggleFormElement.addEventListener('click', toggleFormHandler);
 
   addDeleteEventListeners();
   searchFormElement.addEventListener('submit', event => {

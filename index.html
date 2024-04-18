@@ -18,26 +18,43 @@
 
 	<body>
 		<div class="container">
+			<!-- Header -->
+			<header id="mobile-header">
+				<div class="header-top">
+					<img src="images/menu-icon.svg" alt="menu icon" class="menu-icon" />
+					<h2 class="logo" id="logo">ِِAlmdrasa-Notes</h2>
+					<div class="toggle-form">
+						<img
+							src="images/search-icon-button.svg"
+							alt="search icon"
+							class="search-icon-button"
+						/>
+						<img src="images/x-icon.svg" alt="close icon" class="close-icon" />
+					</div>
+				</div>
+				<!-- Search -->
+				<form class="search-form">
+					<button type="submit" class="search-button">
+						<img
+							src="images/search-icon.svg"
+							class="search-icon"
+							alt="search icon"
+						/>
+					</button>
+					<input
+						type="search"
+						name="search"
+						class="search-input"
+						placeholder="Search"
+					/>
+				</form>
+			</header>
+
 			<!-- Aside -->
 			<aside class="aside">
 				<!-- Header -->
 				<header class="header">
-					<div class="header-top">
-						<img src="images/menu-icon.svg" alt="menu icon" class="menu-icon" />
-						<h2 class="logo" id="logo">Almdrasa-Notes</h2>
-						<div>
-							<img
-								src="images/search-icon-button.svg"
-								alt="search icon"
-								class="search-icon-button"
-							/>
-							<img
-								src="images/x-icon.svg"
-								alt="close icon"
-								class="close-icon"
-							/>
-						</div>
-					</div>
+					<h2 class="logo">Almdrasa-Notes</h2>
 					<!-- Search -->
 					<form class="search-form">
 						<button type="submit" class="search-button">
@@ -55,7 +72,6 @@
 						/>
 					</form>
 				</header>
-
 				<!-- Links -->
 				<div class="aside__links">
 					<button class="aside__link" id="notes-page-button">
@@ -135,7 +151,7 @@
 									<label for="note">Your Note*</label>
 									<textarea name="note" id="note" class="form-note"></textarea>
 								</div>
-								<div>
+								<div class="buttons-wrap">
 									<button class="add-note-button" data-key="false">
 										Add Note
 									</button>

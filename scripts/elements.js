@@ -14,3 +14,6 @@ export const addIconButton = document.querySelector('.add-icon');
 export const searchButtonElement = document.querySelector('.search-button');
 export const searchInputElement = document.querySelector('.search-input');
 export const searchFormElement = document.querySelector('.search-form');
+export const toggleFormElement = document.querySelector('.toggle-form');
+export const searchIconElement = toggleFormElement.querySelector('.search-icon-button');
+export const closeIconElement = toggleFormElement.querySelector('.close-icon');

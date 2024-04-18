@@ -10,7 +10,6 @@
 	--font-size-26: 2.6rem;
 	--font-weight-regular: 400;
 	--font-weight-bold: 700;
-
 	/* Light Colors */
 	--color-primary-light: #303030;
 	--color-accent-light: #ec7160;
@@ -21,7 +20,6 @@
 	--color-gray04-light: #f6f6f6;
 	--color-white-light: #fff;
 	--color-errors-light: #d82700;
-
 	/* Dark Colors */
 	--color-primary-dark: #f6f6f6;
 	--color-accent-dark: #ef8678;
@@ -31,25 +29,23 @@
 	--color-gray03-dark: #303030;
 	--color-gray04-dark: #191919;
 	--color-black-dark: #000;
-
 	/* Other */
 	--border-radius: 0.7rem;
 	--transition-timing: 1s;
 }
 
-// Global Style
+// Start Global Style
 .container {
 	display: flex;
 	width: 100vw;
 	height: 100vh;
 }
 
-// Delete animation
 .deleted {
-	animation: fadeOutMoveLeft 0.6s ease-in;
 	border-radius: var(--border-radius);
 	border: 1px solid #ff0000;
 	border-width: 1px 0;
+	animation: fadeOutMoveLeft 0.6s ease-in;
 }
 
 @keyframes fadeOutMoveLeft {
@@ -57,12 +53,10 @@
 		opacity: 1;
 		transform: translateX(0);
 	}
-
 	50% {
 		opacity: 1;
 		transform: translateX(0);
 	}
-
 	100% {
 		opacity: 0;
 		transform: translateX(-150px);
@@ -82,12 +76,10 @@
 		opacity: 0;
 		transform: translateX(-150px);
 	}
-
 	50% {
 		opacity: 1;
 		transform: translateX(0);
 	}
-
 	100% {
 		opacity: 1;
 		transform: translateX(0);
@@ -101,61 +93,54 @@
 	transition: transform 0.3s ease;
 }
 
-// Styles for the Aside Section
+#mobile-header {
+	display: none;
+}
+
+.search-form {
+	display: flex;
+	align-items: center;
+	width: 21rem;
+	height: 3.401rem;
+	margin: 5.705rem 0 3.594rem;
+	border-radius: var(--border-radius);
+	background-color: var(--color-white-light);
+	.search-button {
+		margin: 0.8rem;
+	}
+	.search-input {
+		width: 17rem;
+		height: 2rem;
+		&::placeholder {
+			@include text-style(
+				$size: var(--font-size-13),
+				$line-height: 2rem,
+				$weight: var(--font-weight-regular),
+				$color: var(--color-gray02-light)
+			);
+		}
+	}
+}
+// End Global Style
+
+// Start Styles for the Aside Section
 .aside {
 	min-width: 25.8rem;
 	height: 100%;
 	padding-left: 24px;
 	background-color: #f6f6f6;
 	border-right: 0.1rem solid var(--color-gray03-light);
-
-	// Header Styles
 	.header {
-		// Hide any element related to mobile responsive
-		.header-top *:not(.logo) {
-			display: none;
-		}
-
 		.logo {
 			@include aclonica-regular;
 			margin-top: 41px;
 		}
-
-		.search-form {
-			display: flex;
-			align-items: center;
-			width: 21rem;
-			height: 3.401rem;
-			margin: 5.705rem 0 3.594rem;
-			border-radius: var(--border-radius);
-			background-color: var(--color-white-light);
-
-			.search-button {
-				margin: 0.8rem;
-			}
-
-			.search-input {
-				width: 17rem;
-				height: 2rem;
-				&::placeholder {
-					@include text-style(
-						$size: var(--font-size-13),
-						$line-height: 2rem,
-						$weight: var(--font-weight-regular),
-						$color: var(--color-gray02-light)
-					);
-				}
-			}
-		}
 	}
-
-	// Links Styles
 	&__links {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		margin-left: 0.8rem;
-
 		.aside__link {
 			@include text-style(
 				$line-height: 2.7rem,
@@ -171,8 +156,6 @@
 				background-color: var(--color-accent-light);
 				transition: all 0.6s ease;
 			}
-
-			// Active Page Style
 			&.not-active {
 				color: var(--color-gray02-light);
 				.line {
@@ -182,8 +165,9 @@
 		}
 	}
 }
+// End Styles for the Aside Section
 
-// Styles for the Main Section
+// Start Styles for the Main Section
 .main {
 	height: 100%;
 	width: 100%;
@@ -191,28 +175,23 @@
 		.active-page {
 			display: block;
 		}
-
 		#notesPage {
 			position: relative;
 			height: 100%;
 			width: 100%;
 			display: none;
-
 			&.active-page {
 				display: flex;
 			}
-
 			.sidebar.toggled {
 				position: absolute;
 				left: -2rem;
 				min-width: 2rem;
 				border: none;
-
 				.sidebar__top,
 				.sidebar__bottom {
 					display: none;
 				}
-
 				.sidebar-toggle__icon {
 					transform: rotate(-180deg);
 					transition: all 3s ease;
@@ -226,18 +205,15 @@
 				padding-top: 4.8rem;
 				border-right: 0.1rem solid var(--color-gray03-light);
 				transition: all 1s ease;
-
 				&-toggle {
 					position: absolute;
 					right: -1.45rem;
 					top: 12.917rem;
-
 					&__icon {
 						transform: rotate(360deg);
 						transition: all var(--transition-timing) ease;
 					}
 				}
-
 				&__title {
 					@include text-style(
 						$size: var(--font-size-13),
@@ -258,7 +234,6 @@
 				&__top {
 					.notes-wrapper {
 						max-height: 21.3rem;
-
 						/* Override pinned-note class when added with JavaScript */
 						.note.pinned-note {
 							background-color: transparent;
@@ -273,7 +248,6 @@
 				@media (min-height: 848px) {
 					max-height: 59rem;
 				}
-
 				&::-webkit-scrollbar {
 					width: 0.5rem;
 					border-radius: 5px;
@@ -289,7 +263,6 @@
 				&::-webkit-scrollbar-thumb:hover {
 					background: var(--color-hover-light);
 				}
-
 				.note {
 					width: 29.8rem;
 					padding: 1.1rem 1.6rem 0.6rem;
@@ -297,7 +270,6 @@
 					font-size: var(--font-size-13);
 					color: var(--color-gray02-light);
 					user-select: none;
-
 					&-title {
 						@include text-style(
 							$size: var(--font-size-16),
@@ -324,12 +296,10 @@
 						}
 					}
 				}
-
 				.active-note .note-title {
 					font-size: var(--font-size-20);
 					line-height: 2rem;
 				}
-
 				.pinned-note {
 					background-color: var(--color-gray04-light);
 					border-radius: var(--border-radius);
@@ -339,7 +309,7 @@
 			// Styles for the Content
 			.content {
 				width: 100%;
-				word-break: break-all;
+				word-break: break-word;
 				&-wrap {
 					position: relative;
 					margin: 11.4rem 15.3rem 1rem 9.9rem;
@@ -405,14 +375,11 @@
 			height: 100%;
 			width: 100%;
 			padding: 11.4rem 37.9rem 23.8rem 20.3rem;
-
 			&.active-page {
 				display: block;
 			}
-
 			.add__page {
 				padding-right: 10rem;
-
 				.note-title {
 					@include text-style(
 						$size: var(--font-size-26),
@@ -421,7 +388,6 @@
 					);
 					margin-bottom: 3.6rem;
 				}
-
 				form {
 					position: relative;
 					// Confirmation Style
@@ -439,7 +405,6 @@
 						background-color: var(--color-gray03-light);
 						animation: fadeinout 3s ease;
 					}
-
 					@keyframes fadeinout {
 						0% {
 							opacity: 0;
@@ -456,11 +421,9 @@
 							transform: translateY(100%);
 						}
 					}
-
 					.required-input {
 						animation: fadeinout-errors 3s ease;
 					}
-
 					@keyframes fadeinout-errors {
 						0% {
 							border: 1px solid transparent;
@@ -473,7 +436,6 @@
 						}
 					}
 				}
-
 				form label {
 					@include text-style(
 						$size: var(--font-size-13),
@@ -481,7 +443,6 @@
 						$color: var(--color-gray02-light)
 					);
 				}
-
 				form input,
 				textarea {
 					width: 50rem;
@@ -500,7 +461,6 @@
 					resize: none;
 					line-height: 1.5;
 				}
-
 				button {
 					@include text-style(
 						$size: var(--font-size-13),
@@ -510,7 +470,6 @@
 					padding: 1rem 2.2rem;
 					border-radius: 0.5rem;
 					background-color: var(--color-accent-light);
-
 					&:not(:nth-child(2)) {
 						margin-right: 2.7rem;
 					}
@@ -533,6 +492,7 @@
 			}
 		}
 	}
+
 	.main {
 		#notesPage {
 			.sidebar {
@@ -557,33 +517,128 @@
 	}
 }
 
-@media (min-width: 320px) and (max-width: 992px) {
+@media (min-width: 300px) and (max-width: 992px) {
+	// Always hide the PC header on mobile devices
+	.container .aside .header {
+		display: none;
+	}
+
 	.container {
-		.aside {
-			.header {
-				position: fixed;
-				width: 100vw;
-				left: 0;
-				.header-top {
-					display: flex;
-					justify-content: space-between;
-					padding: 1.9rem 1.6rem;
-					align-items: center;
-					border: 2px solid red;
+		#mobile-header {
+			position: fixed;
+			display: block;
+			width: 100vw;
+			left: 0;
+			padding: 2rem 1.5rem;
+			z-index: 1;
+			background-color: var(--color-white-light);
+			.logo {
+				@include aclonica-regular;
+			}
+			.header-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				& * {
+					display: block;
+					margin: 0;
+				}
+				.toggle-form {
+					cursor: pointer;
 					.close-icon {
 						display: none;
 					}
-					& * {
-						display: block;
-						margin: 0;
-					}
-				}
-				.search-form {
-					display: none;
 				}
 			}
-			.aside__links {
-				margin: 7.9rem 9.5rem 0 1.536rem;
+			.search-form {
+				display: none;
+				width: 100%;
+				margin: 3.3rem 1px 0;
+				background-color: var(--color-white-light);
+				animation: fadeInMoveDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+			}
+			@keyframes fadeInMoveDown {
+				0% {
+					opacity: 0;
+					transform: translateY(-50px);
+				}
+				100% {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		}
+
+		// Aside linkes - on mobile
+		.aside {
+			display: none;
+		}
+
+		.main {
+			.main__wrap {
+				#notesPage {
+					.sidebar {
+						// Forget that there is something called Toggle on mobile, Ahmad
+						.sidebar-toggle .sidebar-toggle__icon {
+							display: none;
+						}
+						// Notes page - on mobile
+						display: none;
+						width: 100%;
+						padding: 0;
+						margin-top: 9.4rem;
+						.pinned {
+							padding-left: 2.7rem;
+							margin-bottom: 0.5rem;
+						}
+						.notes {
+							margin: 2.2rem 0 1.6rem;
+							padding: 0.9rem 0 0.7rem 2.8rem;
+						}
+						.notes-wrapper {
+							padding: 0 1.6rem;
+							.note {
+								width: 100%;
+								padding: 0.9rem 1.1rem 1.1rem;
+							}
+						}
+					}
+					.content {
+						// Details page - on mobile
+						display: none;
+						&-wrap {
+							margin: 9.7rem 1.6rem 0;
+							.content__note-wrap {
+								max-height: 85vh;
+								.note {
+									margin-bottom: 3rem;
+								}
+							}
+							.add-icon {
+								display: none;
+							}
+						}
+					}
+				}
+				// Add page - on mobile
+				#addPage {
+					// display: none;
+					padding: 0;
+					& .add__page {
+						padding: 9.7rem 1.6rem 3rem;
+						form input,
+						textarea {
+							width: 100%;
+						}
+						.buttons-wrap {
+							display: flex;
+							justify-content: space-between;
+							button:not(:nth-child(2)) {
+								margin-right: 0;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
