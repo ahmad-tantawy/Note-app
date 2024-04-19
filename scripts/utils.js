@@ -1,9 +1,9 @@
 import {
-  noteAuthorInput,
-  noteTextInput,
-  noteTitleInput,
-  confirmationMessage, notesPage, addPage, addPageButton
-  , notesPageButton, NoteDetailsWrapElement
+  noteAuthorInput, noteTextInput, noteTitleInput, confirmationMessage,
+  notesPage, addPage, addPageButton, notesPageButton, NoteDetailsWrapElement, notesPageInMobile,
+  detailsPageElement, searchIconElement, closeIconElement, asideElement, headerElement,
+  searchFormElementForMobile, searchInputElementForMobile, searchInputElement
+
 } from './elements';
 
 /* eslint-disable */
@@ -43,7 +43,6 @@ export function clearAndConfirmNoteAdd () {
   noteTextInput.value = '';
   // Show confirmation message
   confirmationMessage.style.display = 'block';
-
   setTimeout(function () {
     confirmationMessage.style.display = 'none';
   }, 3000);
@@ -56,7 +55,6 @@ export function validateAddNoteForm () {
     noteAuthorInput,
     noteTextInput
   ];
-
   for (const input of inputFields) {
     if (input.value.trim() === '') {
       input.classList.add('required-input');
@@ -75,7 +73,6 @@ export function createNoteObject (event) {
   const isPinned = isNotePinned(event.target);
   const currentId = getDataFromLocalStorage('id') || 0;
   saveDataToLocalStorage('id', currentId + 1);
-
   return {
     date,
     isPinned,
@@ -133,7 +130,6 @@ export function renderNotesList (notesList, containerSelector, filterFunction) {
   notesList.forEach((note) => {
     if (filterFunction(note)) {
       const isPinnedClass = note.isPinned ? 'pinned-note' : '';
-
       notes += `
         <article class="draggable note ${isPinnedClass}" data-key="${note.id}" draggable="true">
           <h3 class="note-title">${note.title}</h3>
@@ -171,30 +167,43 @@ export function getNoteById (noteId, notesList) {
 // Function to render the note details
 export function renderNoteDetails (note) {
   if (!note) return;
-
   const createdNote = `
     <article class="note">
       <h2 class="note-title">${note.title}</h2>
       <p class="note-date">${note.date}<span class="note-author"> / By ${note.author}</span></p>
       <p class="note-content">${note.noteText}</p>
     </article>`;
-
   NoteDetailsWrapElement.innerHTML = createdNote;
+}
+
+export function toggleNotesAndDetailsDisplay () {
+  if (window.innerWidth <= 992) {
+    /* eslint-disable */
+    const notesPageDisplay = getComputedStyle(notesPageInMobile).display;
+    /* eslint-enable */
+    if (notesPageDisplay === 'block') {
+      notesPageInMobile.style.display = 'none';
+      detailsPageElement.style.display = 'block';
+    } else {
+      notesPageInMobile.style.display = 'block';
+      detailsPageElement.style.display = 'none';
+    }
+  }
 }
 
 // Function to handle the note click event and render the note details
 export function handleNoteClick (event) {
   const noteId = event.target.closest('.note').getAttribute('data-key');
   const isDeleteButtonClicked = event.target.classList.contains('delete-button');
-
   if (!isDeleteButtonClicked) {
     saveDataToLocalStorage('previousNoteId', noteId);
   }
-
   const notesList = getDataFromLocalStorage('notesList') || [];
   const previousId = getDataFromLocalStorage('previousNoteId');
   const note = getNoteById(previousId, notesList);
   renderNoteDetails(note);
+  if (isDeleteButtonClicked) return;
+  toggleNotesAndDetailsDisplay();
 }
 
 /* eslint-disable */
@@ -239,16 +248,12 @@ export function handleDetailsPageView () {
     handleNoNotes();
     return;
   }
-
   addNoteClickHandlers(allDomNotes);
-
   const previousNoteId = getPreviousNoteId();
   const notesList = getDataFromLocalStorage('notesList') || [];
-
   if (handlePreviousNoteId(previousNoteId, notesList)) {
     return;
   }
-
   handleDefaultNoteRendering(notesList);
 }
 
@@ -262,7 +267,6 @@ export const updateLocalStorageWithNewOrder = () => {
     author: noteElement.querySelector('.note-author').innerText,
     isPinned: noteElement.classList.contains('pinned-note')
   }));
-
   saveDataToLocalStorage('notesList', notesArray);
 };
 
@@ -270,7 +274,6 @@ export function draggableNotesHandler () {
   // Get all draggable note elements
   const draggableNotes = document.querySelectorAll('.sidebar__bottom .draggable.note');
   let draggedNote;
-
   draggableNotes.forEach(note => {
     note.addEventListener('dragstart', event => {
       draggedNote = event.target.closest('.draggable');
@@ -280,14 +283,12 @@ export function draggableNotesHandler () {
         event.dataTransfer.setData('text/plain', draggedNote.innerHTML);
       }
     });
-
     note.addEventListener('dragend', () => {
       if (draggedNote) {
         draggedNote.classList.remove('drag-over');
         draggedNote = null;
       }
     });
-
     note.addEventListener('dragover', event => {
       event.preventDefault();
       const target = event.target.closest('.draggable');
@@ -316,9 +317,45 @@ export function draggableNotesHandler () {
 
 export function highlightFirstNote () {
   const firstNote = document.querySelector('.sidebar__bottom .notes-wrapper > .note');
-
   firstNote.classList.add('highlighted-note');
   setTimeout(() => {
     firstNote.classList.remove('highlighted-note');
   }, 1210);
+}
+
+export function toggleFormHandler () {
+  if (searchIconElement.style.display === 'none') {
+    searchIconElement.style.display = 'block';
+    closeIconElement.style.display = 'none';
+    searchFormElementForMobile.style.display = 'none';
+    headerElement.style.backgroundColor = 'var(--color-white-light)';
+  } else {
+    searchIconElement.style.display = 'none';
+    closeIconElement.style.display = 'block';
+    searchFormElementForMobile.style.display = 'flex';
+    headerElement.style.backgroundColor = 'var(--color-gray04-light)';
+  }
+}
+
+export function toggleAsideHandler () {
+  /* eslint-disable */
+  const asideDisplay = getComputedStyle(asideElement).display;
+  /* eslint-enable */
+  if (asideDisplay === 'none') {
+    asideElement.style.display = 'block';
+    headerElement.style.left = '25.8rem';
+  } else {
+    asideElement.style.display = 'none';
+    headerElement.style.left = '0';
+  }
+}
+
+export function handleSearchInputFocus () {
+  if (window.innerWidth <= 992) {
+    searchInputElementForMobile.addEventListener('focus', () => { searchInputElementForMobile.placeholder = 'Watch notes list for feedback 😇'; });
+    searchInputElementForMobile.addEventListener('blur', () => { searchInputElementForMobile.placeholder = 'Search'; });
+  } else {
+    searchInputElement.addEventListener('focus', () => { searchInputElement.placeholder = 'Search .....🧐'; });
+    searchInputElement.addEventListener('blur', () => { searchInputElement.placeholder = 'Search'; });
+  }
 }

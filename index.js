@@ -1,11 +1,13 @@
 import {
-  addNoteButton, addPinnedNoteButton, sidebarToggleButton,
-  notesPageButton, addPageButton, addIconButton, searchFormElement,
-  searchInputElement, toggleFormElement, searchIconElement, closeIconElement
+  addNoteButton, addPinnedNoteButton, sidebarToggleButton, notesPageButton, addPageButton,
+  addIconButton, searchFormElement, searchInputElement, toggleFormElement, menuIconElement,
+  closeSidebarIcon, detailsPageElement, searchInputElementForMobile, searchFormElementForMobile
 } from './scripts/elements';
 import {
-  getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm, createNoteObject, toggleSidebar,
-  toggleToNotesPage, toggleToAddPage, initializeApp, handleActivePage, renderNotesList, handleDetailsPageView, draggableNotesHandler, highlightFirstNote
+  getDataFromLocalStorage, saveDataToLocalStorage, clearAndConfirmNoteAdd, validateAddNoteForm,
+  createNoteObject, toggleSidebar, toggleToNotesPage, toggleToAddPage, initializeApp, handleActivePage,
+  renderNotesList, handleDetailsPageView, draggableNotesHandler, highlightFirstNote, toggleNotesAndDetailsDisplay,
+  toggleFormHandler, toggleAsideHandler, handleSearchInputFocus
 } from './scripts/utils';
 
 // Function to add event listeners to delete buttons
@@ -67,44 +69,57 @@ function deleteButtonClickHandler (event) {
   }
 }
 
-function toggleFormHandler (event) {
-  const headerElement = event.target.closest('#mobile-header');
-  console.log(headerElement);
-  if (searchIconElement.style.display === 'none') {
-    searchIconElement.style.display = 'block';
-    closeIconElement.style.display = 'none';
-    searchFormElement.style.display = 'none';
-    headerElement.style.backgroundColor = 'var(--color-white-light)';
-  } else {
-    searchIconElement.style.display = 'none';
-    closeIconElement.style.display = 'block';
-    searchFormElement.style.display = 'flex';
-    headerElement.style.backgroundColor = 'var(--color-gray04-light)';
-  }
-}
-
-// implement event listener for buttons
-function initialEventListeners () {
-  addNoteButton.addEventListener('click', addNote);
-  addPinnedNoteButton.addEventListener('click', addNote);
-  sidebarToggleButton.addEventListener('click', toggleSidebar);
-  notesPageButton.addEventListener('click', toggleToNotesPage);
-  addPageButton.addEventListener('click', toggleToAddPage);
-  addIconButton.addEventListener('click', toggleToAddPage);
-  toggleFormElement.addEventListener('click', toggleFormHandler);
-
-  addDeleteEventListeners();
+// Add event listener for search form submission on PC
+function addSearchFormEventListenerPC () {
   searchFormElement.addEventListener('submit', event => {
     event.preventDefault();
     const searchValue = searchInputElement.value;
     if (searchValue) {
       searchHandler(event, searchValue);
-      searchInputElement.value = '';
+      setTimeout(() => {
+        searchInputElement.value = '';
+      }, 1500);
     }
   });
+}
 
-  searchInputElement.addEventListener('focus', () => { searchInputElement.placeholder = 'Search .....🧐'; });
-  searchInputElement.addEventListener('blur', () => { searchInputElement.placeholder = 'Search'; });
+// Add event listener for search form submission on mobile
+function addSearchFormEventListenerMobile () {
+  searchFormElementForMobile.addEventListener('submit', event => {
+    event.preventDefault();
+    const searchValue = searchInputElementForMobile.value;
+    if (searchValue) {
+      searchHandler(event, searchValue);
+      setTimeout(() => {
+        searchInputElementForMobile.value = '';
+      }, 1500);
+    }
+  });
+}
+
+// Implement event listeners for buttons
+function initialEventListeners () {
+  // Adding notes
+  addNoteButton.addEventListener('click', addNote);
+  addPinnedNoteButton.addEventListener('click', addNote);
+  // Toggling sidebar
+  sidebarToggleButton.addEventListener('click', toggleSidebar);
+  // Toggling between notes and add page
+  notesPageButton.addEventListener('click', toggleToNotesPage);
+  addPageButton.addEventListener('click', toggleToAddPage);
+  addIconButton.addEventListener('click', toggleToAddPage);
+  // Events specific to mobile devices 'for responsive'
+  toggleFormElement.addEventListener('click', toggleFormHandler);
+  menuIconElement.addEventListener('click', toggleAsideHandler);
+  closeSidebarIcon.addEventListener('click', toggleAsideHandler);
+  detailsPageElement.addEventListener('click', toggleNotesAndDetailsDisplay);
+  // Add delete event listeners
+  addDeleteEventListeners();
+  // Add event listener for search form submission
+  addSearchFormEventListenerPC();
+  addSearchFormEventListenerMobile();
+  // Add event listeners for search input focus and blur 'just for feedback'
+  handleSearchInputFocus();
 }
 
 function searchHandler (event, searchValue) {
@@ -112,7 +127,7 @@ function searchHandler (event, searchValue) {
   let notesList = getDataFromLocalStorage('notesList');
 
   const filteredNotes = notesList.filter(note => {
-    const isfound = note.title.includes(searchValue) || note.noteText.includes(searchValue) || note.author.includes(searchValue);
+    const isfound = note.title.includes(searchValue) || note.author.includes(searchValue) || note.noteText.includes(searchValue);
     return isfound;
   });
 
@@ -122,6 +137,9 @@ function searchHandler (event, searchValue) {
     renderNotesLists();
     highlightFirstNote();
     initialEventListeners();
+  } else {
+    searchInputElement.value = 'Sorry, not found! 🐸';
+    searchInputElementForMobile.value = 'Sorry, not found! 🐸';
   }
 }
 
