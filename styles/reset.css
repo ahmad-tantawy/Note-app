@@ -25,6 +25,16 @@ button,
 textarea,
 select {
 	font: inherit;
+	word-break: break-word;
+}
+
+input,
+button,
+textarea,
+p,
+h3,
+span {
+	word-break: break-word;
 }
 
 p,

@@ -73,13 +73,15 @@ export function createNoteObject (event) {
   const isPinned = isNotePinned(event.target);
   const currentId = getDataFromLocalStorage('id') || 0;
   saveDataToLocalStorage('id', currentId + 1);
+
+  const noteText = noteTextInput.value.replace(/\n/g, '<br>');
   return {
     date,
     isPinned,
     id: currentId,
     title: noteTitleInput.value,
     author: noteAuthorInput.value,
-    noteText: noteTextInput.value
+    noteText
   };
 }
 
@@ -121,6 +123,26 @@ export const initializeApp = () => {
   if (!localStorage.getItem('isNotesPage')) {
     saveDataToLocalStorage('isNotesPage', true);
   }
+
+  if (!localStorage.getItem('appInitialized')) {
+    const data = [
+      {"date":"Apr 20, 2024","isPinned":false,"id":1,"title":"Project Overview and Testing Notes ✦","author":"Ahmad Tantawy","noteText":"Hello engineers, 👋<br><br>❖ The app dynamically adjusts to different screen sizes, so:<br>Testing responsiveness may require reloading the page to ensure accurate results across devices. No problem exists; if you try to test mobile responsiveness from the browser inspector, additional classes hide parts when returning to the laptop view.<br><br>❖ Deleting notes from the pinned tasks list doesn't remove them permanently; they become regular notes.<br><br>❖ Other notes are dummy 😇 and exist for project review only."},
+      {"date": "Apr 20, 2024", "isPinned": false, "id": 2, "title": "Recipe Ideas", "author": "Bob Johnson", "noteText": "Try out new recipes: Thai green curry, Moroccan tagine, Greek moussaka. Experiment with vegan options for dinner party."},
+      {"date": "Apr 21, 2024", "isPinned": true, "id": 3, "title": "Book Club Selections", "author": "Eva Martinez", "noteText": "Current book: 'The Night Circus'. Next month's read: 'Educated'. Discuss themes and characters during next meetup."},
+      {"date": "Apr 22, 2024", "isPinned": false, "id": 4, "title": "Travel Bucket List", "author": "David Brown", "noteText": "Dream destinations: Machu Picchu, Santorini, Tokyo. Research travel itineraries for next year's vacation."},
+      {"date": "Apr 23, 2024", "isPinned": true, "id": 5, "title": "Fitness Challenge", "author": "Sophie Clark", "noteText": "30-day challenge: Daily yoga practice. Weekly progress check-ins. Reward: spa day for completing challenge."},
+      {"date": "Apr 24, 2024", "isPinned": false, "id": 6, "title": "Home Decor Ideas", "author": "Michael Nguyen", "noteText": "Redecorate living room: New sofa, pillows, artwork. Create cozy reading nook. DIY project: Upcycle old furniture."},
+      {"date": "Apr 25, 2024", "isPinned": false, "id": 7, "title": "Career Development Plan", "author": "Emily Patel", "noteText": "Attend industry networking events. Enroll in online courses. Update resume and LinkedIn."},
+      {"date": "Apr 26, 2024", "isPinned": false, "id": 8, "title": "Gardening Tips", "author": "Mark Wilson", "noteText": "Plant seasonal flowers: tulips, daffodils, hyacinths. Maintain vegetable garden. Use organic fertilizers."},
+      {"date": "Apr 27, 2024", "isPinned": false, "id": 9, "title": "Financial Planning", "author": "Laura Garcia", "noteText": "Review monthly expenses. Explore investment opportunities. Set up savings transfer for emergency fund."},
+      {"date": "Apr 28, 2024", "isPinned": false, "id": 10, "title": "Movie Night Suggestions", "author": "Alex Turner", "noteText": "Movie marathon themes: 80s classics, Pixar animations, Oscar-winning films. Prepare popcorn, snacks, blankets."}
+    ]
+    ;
+    localStorage.setItem('appInitialized', true);
+    saveDataToLocalStorage('notesList', data);
+    saveDataToLocalStorage('id', 11); // Starting from 11 to avoid collision with reserved IDs.
+  }
+
 };
 /* eslint-enable */
 
@@ -164,6 +186,20 @@ export function getNoteById (noteId, notesList) {
   return notesList.find((note) => note.id.toString() === noteId);
 }
 
+function formatParagraphsWithHighlightedWords (text) {
+  const paragraphs = text.split('\n\n');
+  const lastParagraph = paragraphs[paragraphs.length - 1];
+  const sentences = lastParagraph.split('\n');
+  const formattedSentences = sentences.map((sentence) => {
+    const words = sentence.split(' ');
+    const lastThreeWords = words.slice(-3);
+    const formattedLastTwoWords = lastThreeWords.slice(0, 2).map((word) => `<span style="color:red">${word}</span>`);
+    const lastWord = lastThreeWords[2];
+    return [...words.slice(0, -3), ...formattedLastTwoWords, lastWord].join(' ');
+  });
+  return formattedSentences.join('\n');
+}
+
 // Function to render the note details
 export function renderNoteDetails (note) {
   if (!note) return;
@@ -171,7 +207,7 @@ export function renderNoteDetails (note) {
     <article class="note">
       <h2 class="note-title">${note.title}</h2>
       <p class="note-date">${note.date}<span class="note-author"> / By ${note.author}</span></p>
-      <p class="note-content">${note.noteText}</p>
+      <p class="note-content">${formatParagraphsWithHighlightedWords(note.noteText)}</p>
     </article>`;
   NoteDetailsWrapElement.innerHTML = createdNote;
 }
@@ -181,11 +217,11 @@ export function toggleNotesAndDetailsDisplay () {
     /* eslint-disable */
     const notesPageDisplay = getComputedStyle(notesPageInMobile).display;
     /* eslint-enable */
-    if (notesPageDisplay === 'block') {
+    if (notesPageDisplay === 'grid') {
       notesPageInMobile.style.display = 'none';
       detailsPageElement.style.display = 'block';
     } else {
-      notesPageInMobile.style.display = 'block';
+      notesPageInMobile.style.display = 'grid';
       detailsPageElement.style.display = 'none';
     }
   }
