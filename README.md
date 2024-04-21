@@ -30,6 +30,12 @@ This is a simple note-taking application designed to help you organize and manag
 5. View and manage your existing notes in the notes list.
 6. Utilize the search functionality to find specific notes quickly.
 
+## Live Demo
+
+Check out the live demo of the Note App [here](https://note-app-pearl.vercel.app/).
+
+Feel free to explore the features and functionality of the application. Please note that any data entered in the live demo may not be persisted as it is for demonstration purposes only.
+
 ## Contributing
 
 Contributions to the Note App are welcome! If you encounter any issues or have suggestions for improvement, please submit an issue on the [GitHub repository](https://github.com/ahmad-tantawy/Note-app). Pull requests are also encouraged.
@@ -43,3 +49,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 For any inquiries or further information, please contact [me](https://www.linkedin.com/in/ahmadtantawy-dev/).
 
 ▸ Enjoy taking organized notes with the Note App!.
+
+## Design Preview ✧
+
+![Design Preview](images/design-preview.JPG)
